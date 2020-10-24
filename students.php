@@ -86,7 +86,7 @@ else{
                 <?php
                     foreach($students as $student){
                         
-                        echo '<tr> <td class="edit"><a href="editstudent.php?userid='.$student['userID'] .'"class="fa fa-edit" style="color:#2997ff"></a></td>';
+                        echo '<tr> <td class="edit"><a href="editstudent.php?userid='.$student['userid'] .'"class="fa fa-edit" style="color:#2997ff"></a></td>';
                         echo '<td>' . $student['muraja'] . '</td>';
                         echo '<td>' . $student['hifz'] . '</td>';
                         echo '<td>' . $student['lastname'] . '</td>';

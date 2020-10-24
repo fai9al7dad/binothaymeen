@@ -1,5 +1,5 @@
 <?php
-    $dsn = 'mysql:host=us-cdbr-east-02.cleardb.com;dbname=binothaymeen';
+    $dsn = 'mysql:host=us-cdbr-east-02.cleardb.com;dbname=heroku_01f7e53d968aa6c';
     $user = 'b6c8d727357aed';
     $pass = '873ee654';
     $options = array(

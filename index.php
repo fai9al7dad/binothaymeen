@@ -11,6 +11,7 @@
         $stmt->execute(array($username,$hashedpass));
         $count = $stmt->rowCount();
         $row = $stmt->fetch();
+        echo $row['firstname'];
         $groupID = $row['groupID'];
 
         if((int)$groupID > 0 ){
