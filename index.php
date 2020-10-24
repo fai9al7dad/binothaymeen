@@ -12,6 +12,8 @@
         $count = $stmt->rowCount();
         $row = $stmt->fetch();
         $groupID = $row['groupID'];
+        
+        echo $row['firstname'];
 
         if((int)$groupID > 0 ){
             $_SESSION['username'] = $username;
