@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+body{
+    font-family: 'Tajawal', sans-serif; 
+    background-image: url(../images/bglogin.png);
+    background-size: cover;
+    background-position: top;
+}
+
+.container{
+    margin:20px 39px 20px 39px ;
+}
+.imgcontainer{
+    display: flex;
+    justify-content: center
+}
+img{
+    width: 331px;
+    height: 287px;
+}
+
+form{
+    color: #646464
+}
+
+.textup{
+    margin-top: -20px;
+    text-align: end;
+}
+
+.textup h3{
+    font-size:23px
+}
+
+.textup h1{
+    font-size: 34px;
+}
+
+.username, .password{
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    margin-bottom: 36.5px;
+}
+
+.username input{
+    font-family: 'Tajawal', sans-serif;  
+    text-align: end;
+    font-size: 16px;
+    margin: 36.5px 0 36.5px 0;
+    border: none;   
+    border-bottom: 1px solid #707070;
+    width: 100%;
+}
+
+.password input{
+    text-align: end;
+    font-size: 16px;
+    margin: 36.5px 0 36.5px 0;
+    border: none;   
+    border-bottom: 1px solid #707070;
+    width: 100%;
+}
+
+.username input:focus{
+    outline:none;
+}
+
+.password input:focus{
+    outline:none;
+}
+
+.submitbutton{
+    display: flex;
+    justify-content: center;
+}
+
+.submitbutton input{
+    width: 116px;
+    height: 54px;
+    border-radius: 24px;
+    background: #6ECCD3;
+    border: 0px;
+    color: #fff;
+    font-size: 21px;
+    font-family: 'Tajawal', sans-serif;  
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.178)
+}
+
+form p{
+    margin-top: 54.5px;
+    text-align: end;
+    font-size: 21px;
+    margin-bottom: 100px;
+}
+
+form p a{
+    color:#6ECCD3;
+}
+@media(min-width :1000px){
+    .container{
+        margin: 20px 555px 20px 555px;
+    }
+    body{
+        background:none !important;
+    }
+
+}
