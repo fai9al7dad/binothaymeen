@@ -13,7 +13,7 @@
         $row = $stmt->fetch();
         echo $row['firstname'];
         $groupID = $row['groupID'];
-
+       
         if((int)$groupID > 0 ){
             $_SESSION['username'] = $username;
             header('Location:filters/daily.php');
