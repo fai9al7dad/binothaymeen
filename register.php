@@ -73,12 +73,12 @@ include 'connect.php';
 
             <div class="hifz">
                 <label for="hifzinput">ورد الحفظ اليومي</label>
-                <input type="number" name="hifz" class="hifzinput" id="hifzinput"  autocomplete = "off" required>
+                <input type="number" name="hifz" class="hifzinput" id="hifzinput"  autocomplete = "off" step="0.01" min=0 required>
             </div>
 
             <div class="murajaa">
                 <label for="murajaainput">ورد المراجعة اليومي</label>
-                <input type="number" name="murajaa" class="murajaainput" id="murajaainput" autocomplete = "off"  required>
+                <input type="number" name="murajaa" class="murajaainput" id="murajaainput" autocomplete = "off" step="0.01" min=0 required>
             </div>
 
             <div class="pass">
