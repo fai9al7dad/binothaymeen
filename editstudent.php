@@ -4,7 +4,7 @@ session_start();
 
 if(isset($_GET['userid'])){
     $id= $_GET['userid'];
-    $stmt = $con->prepare("SELECT * FROM users where userID = '$id'");
+    $stmt = $con->prepare("SELECT * FROM users where userid = '$id'");
     $stmt->execute();
     $row = $stmt->fetch();
 
@@ -38,18 +38,18 @@ if(isset($_GET['userid'])){
      
         <div class="edit">
             <label for="hifzinput">ورد الحفظ</label>
-            <input type="number" name="hifz" class="hifzinput" id="hifzinput" autocomplete = "off" value ="<?php echo $row['hifz']?>">
+            <input type="number" name="hifz" class="hifzinput" id="hifzinput" autocomplete = "off" value ="<?php echo $row['hifz']?>" step='0.1' min ='0' >
         </div>
 
         <div class="edit">
             <label for="murajainput">ورد المراجعة</label>
-            <input type="number" name="muraja" class="murajainput" id="murajainput" autocomplete ="off" value = "<?php echo $row['muraja']?>">
+            <input type="number" name="muraja" class="murajainput" id="murajainput" autocomplete ="off" value = "<?php echo $row['muraja']?>" step='0.1' min ='0'>
         </div>
         
         <div class="submitbutton">
             <input name ="submit" type="submit" value="تعديل" class="mainbutton">
         </div>
-        <input type="hidden" name ="userid" value = "<?php echo $row['userID']?>">
+        <input type="hidden" name ="userid" value = "<?php echo $row['userid']?>">
     
     </form>
 

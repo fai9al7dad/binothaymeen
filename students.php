@@ -63,9 +63,8 @@ else{
                 $muraja = $_POST['muraja'];
                 $id = $_POST['userid'];
 
-                $update = $con->prepare("UPDATE users SET hifz=?, muraja =? WHERE userID = ?");
+                $update = $con->prepare("UPDATE users SET hifz=?, muraja =? WHERE userid = ?");
                 $update->execute([$hifz,$muraja,$id]);
-
                 echo "<p>تم التعديل بنجاح</p>";
        
 

@@ -9,7 +9,7 @@ if(isset($_SESSION['username'])){
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $halqah = $row['halqah'];
 
-    $stmt = $con->prepare("SELECT username,firstname,lastname,hifz,muraja,date FROM wird WHERE halqah = '$halqah' order by wirdid desc");
+    $stmt = $con->prepare("SELECT username,firstname,lastname,hifz,muraja,date,hifztasmee3,murajatasmee3 FROM wird WHERE halqah = '$halqah' order by wirdid desc");
     $stmt->execute();
     if (isset($_POST['filter'])){
         $filter= $_POST['selectfilter'];
@@ -82,8 +82,10 @@ else{
             <table>
                 <tr>
                     <th>عجز المراجعة</th>
+                    <th>عدد الصفحات</th>
                     <th>المراجعة</th>
                     <th>عجز الحفظ</th>
+                    <th>عدد الصفحات</th>
                     <th>الحفظ</th>
                     <th>التاريخ</th>
                     <th>الإسم</th>
@@ -119,8 +121,8 @@ else{
                                 echo '<td>' . $mlate=0 . '</td>';
                                 echo "<td class = 'hifz' style ='clear:left'>" . $row['muraja'] ."</td>"; 
                             }
-
-                        // hifz
+                            echo '<td>' . $row['murajatasmee3'] . '</td>';
+                            // hifz
                             
                             if ( $row['hifz'] > $hamount['hifz']){
                                 echo '<td>' . $hlate=0 . '</td>';
@@ -138,7 +140,8 @@ else{
                                 echo '<td>' . $hlate=0 . '</td>';
                                 echo "<td class = 'hifz'>" . $row['hifz'] ."</td>"; 
                             }
-                           echo '<td>' . $row['date'] . '</td>' .
+                            echo '<td>' . $row['hifztasmee3'] . '</td>';
+                            echo '<td>' . $row['date'] . '</td>' .
                             '<td>'. $row['firstname'] . ' ' . $row['lastname'] .'</td>' .
                             '
                         </tr>';

@@ -241,6 +241,22 @@ tr:nth-child(even) {
     text-align: right;
 }
 
+button{
+
+    background: blue;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 @media(min-width :310px){
     img{
         width: 135px;
