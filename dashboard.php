@@ -37,6 +37,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="images/logo1.png" type="image/png">
+
     <title><?php echo basename($_SERVER['PHP_SELF'])?></title>
 </head>
 <body>
@@ -67,7 +69,7 @@
                 <p>الحفظ</p>
                 <div class="boxcontainer">
                     <small>كم سمعت اليوم؟</small>
-                    <input name ="hifz" type="number" placeholder ="ادخل '0' اذا لم تسمع'" autocomplete ="off" required>
+                    <input name ="hifz" type="number" placeholder ="ادخل '0' اذا لم تسمع'" autocomplete ="off" step = "0.01" min =0 required>
                 </div>
             </div>
             <div class="clear"></div>
@@ -76,7 +78,7 @@
                 <p>المراجعة</p>
                 <div class="boxcontainer">
                     <small>كم سمعت اليوم؟</small>
-                    <input name = "muraja" type="number" placeholder ="ادخل '0' اذا لم تُسمع'" autocomplete ="off" required>
+                    <input name = "muraja" type="number" placeholder ="ادخل '0' اذا لم تُسمع'" autocomplete ="off" step="0.01" min=0 required>
                 </div>
                 
             </div>
@@ -113,14 +115,14 @@
                     $stmt2->execute();
                     $hamount = $stmt2->fetch();
                     
-                    $late = 0;
+                    $late = 0;    
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                        if ( (int)$row['hifz'] > (int)$hamount['hifz']){
+                        if ( (float)$row['hifz'] > (float)$hamount['hifz']){
                             echo "<li class = 'hifz good' style ='clear:left'>" . $row['hifz'] ."</li>";
                             $ajz = $row['hifz'] - $hamount['hifz'];
                             $late -= $ajz;
                         }
-                        elseif ((int)$row['hifz'] < (int)$hamount['hifz']){
+                        elseif ((float)$row['hifz'] < (float)$hamount['hifz']){
                             echo "<li class = 'hifz bad' style ='clear:left'>" . $row['hifz'] ."</li>"; 
                             $ajz = $row['hifz'] - $hamount['hifz'];
                             $late -= $ajz;
@@ -141,7 +143,7 @@
                   <?php if ($late<0){
                         echo $late =0;
                       }else{
-                          echo $late;
+                          echo (float)$late;
                       }
                     ?></p>
             </div>
@@ -174,12 +176,12 @@
                     
                     $late = 0;
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                        if ( (int)$row['muraja'] > (int)$hamount['muraja']){
+                        if ( (float)$row['muraja'] > (float)$hamount['muraja']){
                             echo "<li class = 'muraja good' style ='clear:left'>" . $row['muraja'] ."</li>";
                             $ajz = $row['muraja'] - $hamount['muraja'];
                             $late -= $ajz;
                         }
-                        elseif ((int)$row['muraja'] < (int)$hamount['muraja']){
+                        elseif ((float)$row['muraja'] < (float)$hamount['muraja']){
                             echo "<li class = 'muraja bad' style ='clear:left'>" . $row['muraja'] ."</li>"; 
                             $ajz = $row['muraja'] - $hamount['muraja'];
                             $late -= $ajz;
@@ -199,7 +201,7 @@
                   <?php if ($late<0){
                         echo $late =0;
                       }else{
-                          echo $late;
+                          echo (float)$late;
                       }
                     ?></p>
             </div>

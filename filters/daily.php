@@ -9,7 +9,7 @@ if(isset($_SESSION['username'])){
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $halqah = $row['halqah'];
 
-    $stmt = $con->prepare("SELECT username,firstname,lastname,hifz,muraja,date FROM wird WHERE halqah = '$halqah' order by date desc");
+    $stmt = $con->prepare("SELECT username,firstname,lastname,hifz,muraja,date FROM wird WHERE halqah = '$halqah' order by wirdid desc");
     $stmt->execute();
     if (isset($_POST['filter'])){
         $filter= $_POST['selectfilter'];
@@ -32,6 +32,8 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo basename($_SERVER['PHP_SELF'])?></title>
     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="icon" href="images/logo1.png" type="image/png">
+
 </head>
     
 

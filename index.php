@@ -38,7 +38,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بن عثيمين</title>
     <link rel="stylesheet" href="css/login.css">
-</head>
+    <link rel="icon" href="images/logo1.png" type="image/png">
 <body>
 
 <form action="<?php echo $_SERVER['PHP_SELF']?>" class="login" method="POST">
