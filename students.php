@@ -33,8 +33,6 @@ else{
     <title><?php echo basename($_SERVER['PHP_SELF'])?></title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="icon" href="images/logo1.png" type="image/png">
-    <link rel="icon" href="images/logo1.png" type="image/png">
-
     <script src="https://kit.fontawesome.com/d5f4ea13ff.js" crossorigin="anonymous"></script>
 </head>
     

@@ -208,6 +208,7 @@ tr:nth-child(even) {
     color: #A4ABCB;
     font-family: 'Tajawal', sans-serif;
     text-align: right;
+    cursor: pointer;
 }
 #filter:focus{
     outline:none;
@@ -216,6 +217,15 @@ tr:nth-child(even) {
 .filtersearch:focus{
     outline:none;
 }
+
+
+.filtersearch:hover{
+
+    background: #2997ff;
+    transition: 0.2s ease-in-out;
+    border-color: #2997ff;
+}
+
 
 
 /* edit students */
@@ -241,12 +251,26 @@ tr:nth-child(even) {
     text-align: right;
 }
 
-button{
 
-    background: blue;
+
+.addtasme3{
+    padding:5px 10px;
+    margin: 0 !important;
+    border:1px solid;
+    border-radius: 5px;
+    background: #252A48;
+    color: #A4ABCB;
+    font-family: 'Tajawal', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-
+.addtasme3:hover{
+    text-align: right;
+    background: #2997ff;
+    transition: 0.2s ease-in-out;
+    border-color: #2997ff;
+}
 
 
 

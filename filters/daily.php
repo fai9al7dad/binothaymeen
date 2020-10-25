@@ -9,12 +9,14 @@ if(isset($_SESSION['username'])){
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $halqah = $row['halqah'];
 
-    $stmt = $con->prepare("SELECT username,firstname,lastname,hifz,muraja,date,hifztasmee3,murajatasmee3 FROM wird WHERE halqah = '$halqah' order by wirdid desc");
+    $stmt = $con->prepare("SELECT wirdid,username,firstname,lastname,hifz,muraja,date,hifztasmee3,murajatasmee3 FROM wird WHERE halqah = '$halqah' order by wirdid desc");
     $stmt->execute();
     if (isset($_POST['filter'])){
         $filter= $_POST['selectfilter'];
         header('Location:' . $filter. '.php');
     }
+
+    
 }
 
 else{
@@ -33,6 +35,7 @@ else{
     <title><?php echo basename($_SERVER['PHP_SELF'])?></title>
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="icon" href="images/logo1.png" type="image/png">
+    <script src="https://kit.fontawesome.com/d5f4ea13ff.js" crossorigin="anonymous"></script>
 
 </head>
     
@@ -73,14 +76,19 @@ else{
                 <option value="lowesthifz">الاقل حفظا</option>
                 <option value="lowestmuraja">الاقل مراجعة</option>
             </select>
-            
 
         </form>
+
         <p>الترتيب بواسطة اخر التسجيلات </p>
+        <div style="display:flex; justify-content:flex-end; margin-bottom: 10px">
+            <a  href ="../addtasme3.php" class="addtasme3">اضف تسميع </a> 
+
+        </div>
 
         <div style="overflow-x:auto;">
             <table>
                 <tr>
+                    <th>حذف</th>
                     <th>عجز المراجعة</th>
                     <th>عدد الصفحات</th>
                     <th>المراجعة</th>
@@ -106,7 +114,10 @@ else{
                     $hifzcheck->execute();
                     $hamount = $hifzcheck->fetch();
                     echo 
-                        '<tr>';
+                        '<tr>
+                            
+                        <td class="edit"><a href="../deletewird.php?wirdid='.$row['wirdid'] .'"class="far fa-minus-square" style="color:#ff5151; font-size:20px"></a></td>';
+                            
                             if ($row['muraja'] >$mamount['muraja']){
                                 echo '<td>' . $mlate =0 . '</td>';
                                 echo "<td class = 'good'>" . $row['muraja'] ."</td>";
