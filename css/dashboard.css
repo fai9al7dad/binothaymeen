@@ -53,6 +53,7 @@ p {
     color: #A4ABCB;
     font-size: 20px;
     text-align: right;
+    margin-top: 10px;
 }
 small{
     color:  #5B628B;
@@ -220,7 +221,7 @@ tr:nth-child(even) {
 
 
 .filtersearch:hover{
-
+    color: #fff;
     background: #2997ff;
     transition: 0.2s ease-in-out;
     border-color: #2997ff;
@@ -231,7 +232,7 @@ tr:nth-child(even) {
 /* edit students */
 
 .imgcontainer{ 
-    float: none;   
+    float: left;   
     display: flex;
     justify-content: center;    
 
@@ -239,7 +240,8 @@ tr:nth-child(even) {
 
 .imgcontainer img{
     width: 250px;
-    height: 215px;}
+    height: 215px;
+}
 
 .edit{
     display: flex;
@@ -247,12 +249,25 @@ tr:nth-child(even) {
     color: #fff;
 }
 
-.edit input{
+.edit input, select{
     text-align: right;
+    border: none;
+    border-bottom: 1px solid #8796bd;
+    background-color: #252a48;
+    padding: 7px;
+    color: #8796bd;
 }
 
+.edit label{
+    margin: 10px 0 !important;
+    color: #A4ABCB;
 
 
+}
+
+.edit select{
+    margin-left: 20px;
+}
 .addtasme3{
     padding:5px 10px;
     margin: 0 !important;
@@ -270,6 +285,12 @@ tr:nth-child(even) {
     background: #2997ff;
     transition: 0.2s ease-in-out;
     border-color: #2997ff;
+    color:#fff;
+}
+
+
+a{
+    text-decoration: none;
 }
 
 
@@ -280,11 +301,10 @@ tr:nth-child(even) {
 
 
 
-
-@media(min-width :310px){
-    img{
+@media(max-width :600px){
+    .imgcontainer img{
         width: 135px;
-        height: 119px;
+        height: 117px;
     }
     .container{
         margin: 20px 5px 20px 5px;
@@ -294,14 +314,6 @@ tr:nth-child(even) {
     }
 }
 
-@media(min-width :450px){
-    .container{
-        margin: 20px 5px 20px 5px;
-    }
-    h1{
-        font-size: 25px;
-    }
-}
 
 @media(min-width :1300px){
     .container{

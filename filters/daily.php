@@ -60,7 +60,7 @@ else{
         <div class="clear"></div>
         <!-- الاحصائيات -->
 
-        <p style ="text-align:right; margin-top:57px; font-size:30px">احصائيات <a class="editstudent" href="../students.php"> الطلاب</a></p>
+        <p style ="text-align:right;font-size:30px">احصائيات <a class="editstudent" href="../students.php"> الطلاب</a></p>
         
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <!-- <div class="studentsearch">

@@ -58,7 +58,7 @@ else{
         <div class="clear"></div>
         <!-- الاحصائيات -->
 
-        <p style ="text-align:right; margin-top:57px; font-size:30px">احصائيات الطلاب</p>
+        <p style ="text-align:right;font-size:30px">احصائيات الطلاب</p>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <input class="filtersearch" type="submit" value="ابحث" name="filter">
             <select name="selectfilter" id="filter">
