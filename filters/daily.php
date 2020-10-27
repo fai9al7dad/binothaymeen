@@ -9,7 +9,7 @@ if(isset($_SESSION['username'])){
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $halqah = $row['halqah'];
 
-    $stmt = $con->prepare("SELECT wirdid,username,firstname,lastname,hifz,muraja,date,hifztasmee3,murajatasmee3 FROM wird WHERE halqah = '$halqah' order by wirdid desc");
+    $stmt = $con->prepare("SELECT wirdid,username,firstname,lastname,hifz,muraja,date,hifztasmee3,murajatasmee3 FROM wird WHERE halqah = '$halqah' order by date desc");
     $stmt->execute();
     if (isset($_POST['filter'])){
         $filter= $_POST['selectfilter'];
