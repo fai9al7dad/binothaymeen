@@ -33,7 +33,8 @@ else{
     <title><?php echo basename($_SERVER['PHP_SELF'])?></title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="icon" href="images/logo1.png" type="image/png">
-    <script src="https://kit.fontawesome.com/d5f4ea13ff.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
 </head>
     
 
@@ -76,6 +77,7 @@ else{
         <div style="overflow-x:auto;">
             <table>
                 <tr>
+                    <th>الحصاد</th>
                     <th>التعديل</th>
                     <th>ورد المراجعة</th>
                     <th>ورد الحفظ</th>
@@ -85,8 +87,11 @@ else{
                 
                 <?php
                     foreach($students as $student){
+                        echo '<tr>';
+
+                        echo '<td><a href="studenthasad.php?userid='.$student['userid'] .'"class="fas fa-chart-bar" style="color:#2997ff"></a></td>';
                         
-                        echo '<tr> <td class="edit"><a href="editstudent.php?userid='.$student['userid'] .'"class="fa fa-edit" style="color:#2997ff"></a></td>';
+                        echo '<td class="edit"><a href="editstudent.php?userid='.$student['userid'] .'"class="fa fa-edit" style="color:#2997ff"></a></td>';
                         echo '<td>' . $student['muraja'] . '</td>';
                         echo '<td>' . $student['hifz'] . '</td>';
                         echo '<td>' . $student['lastname'] . '</td>';

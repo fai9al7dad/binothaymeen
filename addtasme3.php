@@ -21,6 +21,8 @@ if(isset($_SESSION['username'])){
         $murajat =$_POST['murajatasme3'];
         $murajaa =$_POST['murajaamount'];
         $date = $_POST['year'] .'-'. $_POST['month'] .'-'. $_POST['day'];
+        $status = $_POST['status'];
+
         
         $selectstmt = $con->prepare('SELECT * FROM users where username = ?');
         $selectstmt->execute([$sname]);
@@ -29,9 +31,26 @@ if(isset($_SESSION['username'])){
         $lastname =$row['lastname'];
         $halqah =$row['halqah'];
 
-        $insertstmt = $con->prepare("INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,DATE ?,?,?)");
-        $result = $insertstmt->execute([$firstname,$lastname,$sname,$halqah,$hifza, $murajaa,$date,$hifzt,$murajat]);
+        if ($status == 'absent'){
+            $insertstmt = $con->prepare("INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,DATE ?,?,?)");
+            $result = $insertstmt->execute([$firstname,$lastname,$sname,$halqah,0, 0,$date,"غائب","غائب"]);
+        }
 
+        else if ($status == 'absentexecuse'){
+            $insertstmt = $con->prepare("INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,DATE ?,?,?)");
+            $result = $insertstmt->execute([$firstname,$lastname,$sname,$halqah,0, 0,$date,"غائب بعذر","غائب بعذر"]);
+        }
+
+        else if ($status == 'didnttasme3'){
+            $insertstmt = $con->prepare("INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,DATE ?,?,?)");
+            $result = $insertstmt->execute([$firstname,$lastname,$sname,$halqah,0, 0,$date,"لم يسمع","لم يسمع"]);
+        }
+        else{
+            $insertstmt = $con->prepare("INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,DATE ?,?,?)");
+            $result = $insertstmt->execute([$firstname,$lastname,$sname,$halqah,$hifza, $murajaa,$date,$hifzt,$murajat]);
+    
+        }
+      
         echo '<p style="text-align:center">تم التسجيل بنجاح<a class ="editstudent" href="filters/daily.php"> اذهب الى صفحة التسجيل </a></p>';
 
         
@@ -118,6 +137,17 @@ else{
                 </select>
             </div>
 
+        </div>
+
+        <div class="edit" style="margin-top:22px">
+        <label for="status">الحضور</label>
+            <select name="status" id="status">
+                <option value="">حاضر</option>
+                <option value="absent">غائب</option>
+                <option value="absentexecuse">غائب بعذر</option>
+                <option value="didnttasme3">لم يسمع</option>
+            </select>
+        
         </div>
 
         <p  style="margin-top: 30px; font-weight:bold" >الحفظ</p>

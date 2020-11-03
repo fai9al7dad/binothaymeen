@@ -31,8 +31,8 @@ if(isset($_GET['userid'])){
 <body>
     <div class="container">
     <form action="students.php"  class="formedit" method="POST">
-        <div class="imgcontainer">
-            <img src="images/logo1.png" alt="logo">
+        <div class="imgcontainer" style="float:none">
+            <img src="images/logo1.png" alt="logo" style="width:190px;height:170px">
         </div>
         <p>تعديل ورد الطالب <?php echo $row['firstname'] . ' ' . $row['lastname']?></p>
      

@@ -35,7 +35,8 @@ else{
     <title><?php echo basename($_SERVER['PHP_SELF'])?></title>
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="icon" href="images/logo1.png" type="image/png">
-    <script src="https://kit.fontawesome.com/d5f4ea13ff.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
 
 </head>
     
@@ -63,11 +64,6 @@ else{
         <p style ="text-align:right;font-size:30px">احصائيات <a class="editstudent" href="../students.php"> الطلاب</a></p>
         
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            <!-- <div class="studentsearch">
-                <label for="search">ابحث عن طالب</label>
-                <div class="clear"></div>
-                <input id="search" type="text" autocomplete = "off">
-            </div> -->
             <input class="filtersearch" type="submit" value="ابحث" name="filter">
             <select name="selectfilter" id="filter">
                 <option value="daily">التسجيل اليومي</option>
@@ -78,6 +74,11 @@ else{
             </select>
 
         </form>
+
+        <!-- <form action="../search/searchstudent.php" method ="POST">
+                <input class="filtersearch" type="submit" value="ابحث" name="studentsearch">
+                <input type="text" placeholder="ابحث عن طالب">
+        </form> -->
 
         <p>الترتيب بواسطة اخر التسجيلات </p>
         <div style="display:flex; justify-content:flex-end; margin-bottom: 10px">
@@ -102,7 +103,6 @@ else{
 
                 $mlate =0;
                 $hlate =0;
-                $table='';
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                     $username = $row['username'];
                     // Ajz logic
@@ -113,10 +113,11 @@ else{
                     $hifzcheck = $con->prepare("SELECT hifz FROM users WHERE username = '$username'");
                     $hifzcheck->execute();
                     $hamount = $hifzcheck->fetch();
+
                     echo 
                         '<tr>
                             
-                        <td class="edit"><a href="../deletewird.php?wirdid='.$row['wirdid'] .'"class="far fa-minus-square" style="color:#ff5151; font-size:20px"></a></td>';
+                        <td class="edit"><a href="../deletewird.php?wirdid='.$row['wirdid'] .'"class="fas fa-minus-square" style="color:#ff5151; font-size:20px"></a></td>';
                             
                             if ($row['muraja'] >$mamount['muraja']){
                                 echo '<td>' . $mlate =0 . '</td>';
@@ -152,7 +153,9 @@ else{
                                 echo "<td class = 'hifz'>" . $row['hifz'] ."</td>"; 
                             }
                             echo '<td>' . $row['hifztasmee3'] . '</td>';
+
                             echo '<td>' . $row['date'] . '</td>' .
+
                             '<td>'. $row['firstname'] . ' ' . $row['lastname'] .'</td>' .
                             '
                         </tr>';

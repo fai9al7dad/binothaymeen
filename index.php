@@ -11,7 +11,6 @@
         $stmt->execute(array($username,$hashedpass));
         $count = $stmt->rowCount();
         $row = $stmt->fetch();
-        echo $row['firstname'];
         $groupID = $row['groupID'];
        
         if((int)$groupID > 0 ){
@@ -26,6 +25,9 @@
             header('Location:dashboard.php');
             exit();
             
+        }
+        else{
+            echo 'usename or pass wrong';
         }
         
     }
