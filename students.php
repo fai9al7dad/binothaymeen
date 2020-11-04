@@ -77,6 +77,7 @@ else{
         <div style="overflow-x:auto;">
             <table>
                 <tr>
+                    <th>الحذف</th>
                     <th>الحصاد</th>
                     <th>التعديل</th>
                     <th>ورد المراجعة</th>
@@ -88,9 +89,8 @@ else{
                 <?php
                     foreach($students as $student){
                         echo '<tr>';
-
+                        echo '<td><a href="deletewird.php?userid='.$student['userid'] .'"class="fas fa-minus-square" style="color:#ff5151"></a></td>';
                         echo '<td><a href="studenthasad.php?userid='.$student['userid'] .'"class="fas fa-chart-bar" style="color:#2997ff"></a></td>';
-                        
                         echo '<td class="edit"><a href="editstudent.php?userid='.$student['userid'] .'"class="fa fa-edit" style="color:#2997ff"></a></td>';
                         echo '<td>' . $student['muraja'] . '</td>';
                         echo '<td>' . $student['hifz'] . '</td>';
