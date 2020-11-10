@@ -325,6 +325,11 @@ input {
     -webkit-appearance: none !important;
     -moz-appearance: none !important ;
 }
+
+select{
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important ;
+}
 @media(max-width :600px){
     .imgcontainer img{
         width: 135px;
