@@ -99,6 +99,12 @@ form p{
 form p a{
     color:#6ECCD3;
 }
+
+input {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}
 @media(min-width :1000px){
     .container{
         margin: 20px 555px 20px 555px;

@@ -321,6 +321,11 @@ input::placeholder {
     margin-left: 20px;
 }
 
+input {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important ;
+    appearance: none !important;
+}
 @media(max-width :600px){
     .imgcontainer img{
         width: 135px;
