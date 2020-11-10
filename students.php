@@ -11,10 +11,7 @@ if(isset($_SESSION['username'])){
 
     $stmt = $con->prepare("SELECT * FROM users WHERE halqah = '$halqah' AND groupID = '0'");
     $stmt->execute();
-    $students = $stmt->fetchAll();
-
-    
-   
+    $students = $stmt->fetchAll();   
 }
 
 else{
@@ -58,9 +55,9 @@ else{
         <div class="clear"></div>
         <?php
             if(($_SERVER['REQUEST_METHOD'] == "POST")){
-                $hifz = $_POST['hifz'];
-                $muraja = $_POST['muraja'];
-                $id = $_POST['userid'];
+                $hifz = htmlspecialchars($_POST['hifz']);
+                $muraja = htmlspecialchars($_POST['muraja']);
+                $id = htmlspecialchars($_POST['userid']);
 
                 $update = $con->prepare("UPDATE users SET hifz=?, muraja =? WHERE userid = ?");
                 $update->execute([$hifz,$muraja,$id]);

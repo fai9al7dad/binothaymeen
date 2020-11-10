@@ -218,7 +218,9 @@ tr:nth-child(even) {
 .filtersearch:focus{
     outline:none;
 }
-
+select{
+    direction: rtl;
+}
 
 .filtersearch:hover{
     color: #fff;
@@ -267,10 +269,12 @@ tr:nth-child(even) {
 
 .edit select{
     margin-left: 20px;
+    font-size: 16px;
+    font-family: 'tajawal';
 }
 .addtasme3{
     padding:5px 10px;
-    margin: 0 !important;
+    margin-left: 20px;
     border:1px solid;
     border-radius: 5px;
     background: #252A48;
@@ -293,13 +297,29 @@ a{
     text-decoration: none;
 }
 
+.didnttasmee3{
+    margin-top: 30px;
+    color:#A4ABCB
+}
 
+input::placeholder {
+    text-align: right;
+}
+.farzhasad{
+    margin-bottom: 20px;
+}
+.farzhasad label{
+    color:#A4ABCB;
+}
 
+.flexcol{
+    display: flex;
+    flex-direction: column;
+}
 
-
-
-
-
+.flexcol input[type="date"]{
+    margin-left: 20px;
+}
 
 @media(max-width :600px){
     .imgcontainer img{

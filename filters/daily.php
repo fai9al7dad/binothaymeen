@@ -8,6 +8,13 @@ if(isset($_SESSION['username'])){
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $halqah = $row['halqah'];
+    $groupID = $row['groupID'];
+
+    if($groupID ==0 ){
+        $_SESSION['username'] = $username;
+        header('Location:../dashboard.php');
+        exit();
+    }
 
     $stmt = $con->prepare("SELECT wirdid,username,firstname,lastname,hifz,muraja,date,hifztasmee3,murajatasmee3 FROM wird WHERE halqah = '$halqah' order by date desc");
     $stmt->execute();
@@ -15,7 +22,13 @@ if(isset($_SESSION['username'])){
         $filter= $_POST['selectfilter'];
         header('Location:' . $filter. '.php');
     }
+    if(isset($_POST['submit'])){
+        $from= $_POST['fromdate'];
+        $to =$_POST['todate'];
+        $stmt = $con->prepare("SELECT wirdid,username,firstname,lastname,hifz,muraja,date,hifztasmee3,murajatasmee3 FROM wird WHERE halqah = '$halqah' and date between '$from' and '$to' order by date desc");
+        $stmt->execute();
 
+    }
     
 }
 
@@ -34,14 +47,11 @@ else{
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo basename($_SERVER['PHP_SELF'])?></title>
     <link rel="stylesheet" href="../css/dashboard.css">
-    <link rel="icon" href="images/logo1.png" type="image/png">
+    <link rel="icon" href="../images/logo1.png" type="image/png">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 
 
 </head>
-    
-
-
 
 <body>
     <div class="container">
@@ -75,17 +85,30 @@ else{
 
         </form>
 
-        <!-- <form action="../search/searchstudent.php" method ="POST">
-                <input class="filtersearch" type="submit" value="ابحث" name="studentsearch">
-                <input type="text" placeholder="ابحث عن طالب">
-        </form> -->
+        <p style="margin-top:25px !important; margin-bottom:0">فرز الحصاد بواسطة التاريخ</p>
+        <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+            <div class="farzhasad" style="display:flex;flex-direcation:column; justify-content:flex-end">
+                <div class="flexcol">
+                    <label for="todate">الى</label>
+                    <input type="date" name="todate" id="todate">
+                </div>
 
-        <p>الترتيب بواسطة اخر التسجيلات </p>
-        <div style="display:flex; justify-content:flex-end; margin-bottom: 10px">
-            <a  href ="../addtasme3.php" class="addtasme3">اضف تسميع </a> 
+                <div class="flexcol">
+                    <label for="fromdate">من</label>
+                    <input type="date" name="fromdate" id="fromdate">
+                </div>
+            </div>
 
+            <input name ="submit" type="submit" value="ابحث"class="filtersearch" style="margin-bottom:10px">
+        </form>
+
+        <div style="display:flex; justify-content:flex-end; margin-bottom: 10px; margin-top:20px">
+            <a  href ="../attendees.php" class="addtasme3"> تسجيل الحضور <i class="fas fa-tasks"></i></a> 
+            <a  href ="../addtasme3.php" class="addtasme3"> اضف تسميع <i class="fas fa-plus"></i></a> 
         </div>
 
+        
+        
         <div style="overflow-x:auto;">
             <table>
                 <tr>

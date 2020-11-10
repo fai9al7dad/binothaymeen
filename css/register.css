@@ -6,7 +6,9 @@ body{
     background-size: cover;
     background-position-x: center;
 }
-
+.bad{
+    color: rgb(255, 95, 95);
+}
 .container{
     margin:20px 39px 20px 39px ;
 }
@@ -28,21 +30,21 @@ form{
 h1{
     text-align: center;
 }
-.fname,.lname,.uname,.osraa,.hifz,.murajaa,.pass{
+.fname,.lname,.uname,.halqah,.hifz,.murajaa,.pass{
     display: flex;
     align-items: flex-end;
     flex-direction: column;
     margin-bottom: 36.5px;
 }
 
-#osraainput{
+#halqahinput{
     width: 100%;
     border: none;
     border-bottom: 1px solid #707070;
     margin: 36.5px 0 36.5px 0;
 }
 
-#osraainput:focus{
+#halqahinput:focus{
     outline:none
 }
 
@@ -50,7 +52,7 @@ input{
     font-family: 'Tajawal', sans-serif;  
     text-align: end;
     font-size: 16px;
-    margin: 36.5px 0 36.5px 0;
+    margin: 20px 0 20px 0;
     border: none;   
     border-bottom: 1px solid #707070;
     width: 100%;
@@ -90,6 +92,14 @@ form p a{
     color:#6ECCD3;
 }
 
+.halqah{
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+select{
+    direction: rtl;
+}
 
 @media(min-width :1000px){
     .container{

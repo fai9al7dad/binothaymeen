@@ -12,7 +12,13 @@ if(isset($_GET['userid'])){
     $stmt = $con->prepare("SELECT * FROM wird WHERE username = '$username' order by date desc");
     $stmt->execute();
 
-
+    if(isset($_GET['submit'])){
+        $from= $_GET['fromdate'];
+        $to =$_GET['todate'];
+        $stmt = $con->prepare("SELECT * FROM wird WHERE username = '$username' and date between '$from' and '$to' order by date desc");
+        $stmt->execute();
+    }
+    
 }
 
 ?>
@@ -38,6 +44,23 @@ if(isset($_GET['userid'])){
             <img src="images/logo1.png" alt="logo" style="width:190px;height:170px">
         </div>
         <p> حصاد الطالب <?php echo $row['firstname'] . ' ' . $row['lastname']?></p>
+
+        <form action="<?php echo $_SERVER['PHP_SELF']?>" method="GET">
+            <div class="farzhasad" style="display:flex;flex-direcation:column; justify-content:flex-end">
+                <div class="flexcol">
+                    <label for="todate">الى</label>
+                    <input type="date" name="todate" id="todate">
+                </div>
+
+                <div class="flexcol">
+                    <label for="fromdate">من</label>
+                    <input type="date" name="fromdate" id="fromdate">
+                </div>
+                <input type="hidden" name="userid" value = "<?php echo $id?>" >
+            </div>
+            <input name ="submit" type="submit" value="ابحث"class="filtersearch" style="margin-bottom:10px">
+
+        </form>
         <div style="overflow-x:auto;">
             <table>
                 <tr>

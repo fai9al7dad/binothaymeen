@@ -58,8 +58,8 @@ else{
         <div class="clear"></div>
         <!-- الاحصائيات -->
 
-        <p style ="text-align:right;font-size:30px">احصائيات الطلاب</p>
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <p style ="text-align:right;font-size:30px">احصائيات <a class="editstudent" href="../students.php"> الطلاب</a></p>
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <input class="filtersearch" type="submit" value="ابحث" name="filter">
             <select name="selectfilter" id="filter">
                 <option value=""></option>

@@ -11,6 +11,13 @@
         $firstname = $row['firstname'];
         $lastname = $row['lastname'];
         $halqah = $row['halqah'];
+        $groupID = $row['groupID'];
+
+        if($groupID > 0 ){
+            $_SESSION['username'] = $username;
+            header('Location:filters/daily.php');
+            exit();
+        }
     }
 
     else{
@@ -19,17 +26,16 @@
     }
 
     if(isset($_POST['create'])){
-         $hifz=  $_POST['hifz'];
-         $muraja = $_POST['muraja'];
-         $htasmee3 = $_POST['hifztasme3'];
-         $mtasmee3 = $_POST['murajatasme3'];
-
+        $hifz= htmlspecialchars($_POST['hifz']);
+        $muraja = htmlspecialchars($_POST['muraja']);
+        $htasmee3 = htmlspecialchars($_POST['hifztasme3']);
+        $mtasmee3 = htmlspecialchars($_POST['murajatasme3']);
 
         $stmt = $con->prepare("INSERT INTO wird (firstname,lastname,hifz,muraja,date,halqah,username, hifztasmee3,murajatasmee3) VALUES(?,?,?,?,now(),?,?,?,?)");
-
+       
         $stmt->execute(array($firstname,$lastname,$hifz,$muraja,$halqah,$username,$htasmee3,$mtasmee3));
-
         echo '<p style="text-align:center;"> تم تسجيل وردك بنجاح</p>';
+
     }
     
 ?>
@@ -72,7 +78,7 @@
                 <p>الحفظ</p>
                 <div class="boxcontainer">
                     <small>كم سمعت اليوم؟</small>
-                    <input name ="hifz" type="number" placeholder ="ادخل '0' اذا لم تسمع'" autocomplete ="off" step = "0.01" min =0 required>
+                    <input name ="hifz" value="0" type="number" placeholder ="اترك فارغا ان لم تسمع"  autocomplete ="off" step = "0.5" min =0>
                 </div>
             </div>
             <div class="clear"></div>
@@ -80,7 +86,7 @@
             <div class="hifz">
                 <div class="boxcontainer">
                     <small>من فين لفين؟</small>
-                    <input name ="hifztasme3" type="text" placeholder ="النور 1 - 25'" autocomplete ="off"  required>
+                    <input id = "hifztasmee3" name ="hifztasme3" type="text" default = null placeholder ="اترك فارغا ان لم تسمع" autocomplete ="off">
                 </div>
             </div>
 
@@ -88,13 +94,13 @@
                 <p>المراجعة</p>
                 <div class="boxcontainer">
                     <small>كم سمعت اليوم؟</small>
-                    <input name = "muraja" type="number" placeholder ="ادخل '0' اذا لم تُسمع'" autocomplete ="off" step="0.01" min=0 required>
+                    <input name = "muraja" value="0" type="number" placeholder ="اترك فارغا ان لم تسمع" autocomplete ="off" step="0.5" min=0>
                 </div>
 
                 <div class="muraja">
                 <div class="boxcontainer">
                     <small>من فين لفين؟</small>
-                    <input name ="murajatasme3" type="text" placeholder ="جزء تبارك'" autocomplete ="off"  required>
+                    <input id = "murajatasmee3" name ="murajatasme3" type="text" placeholder ="اترك فارغا ان لسمع" autocomplete ="off">
                 </div>
             </div>
                 
@@ -229,4 +235,3 @@
 </body>
 </html>
 
-<script src="js/script.js"></script>

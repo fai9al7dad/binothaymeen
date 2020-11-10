@@ -15,14 +15,13 @@ if(isset($_SESSION['username'])){
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         
-        $sname = $_POST['studentname'];
-        $hifzt = $_POST['hifztasme3'];
-        $hifza = $_POST['hifzamount'];
-        $murajat =$_POST['murajatasme3'];
-        $murajaa =$_POST['murajaamount'];
+        $sname = htmlspecialchars($_POST['studentname']);
+        $hifzt = htmlspecialchars($_POST['hifztasme3']);
+        $hifza = htmlspecialchars($_POST['hifzamount']);
+        $murajat =htmlspecialchars($_POST['murajatasme3']);
+        $murajaa =htmlspecialchars($_POST['murajaamount']);
         $date = $_POST['year'] .'-'. $_POST['month'] .'-'. $_POST['day'];
-        $status = $_POST['status'];
-
+        $didnttasmee3 = $_POST['didnttasmee3'];
         
         $selectstmt = $con->prepare('SELECT * FROM users where username = ?');
         $selectstmt->execute([$sname]);
@@ -31,17 +30,7 @@ if(isset($_SESSION['username'])){
         $lastname =$row['lastname'];
         $halqah =$row['halqah'];
 
-        if ($status == 'absent'){
-            $insertstmt = $con->prepare("INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,DATE ?,?,?)");
-            $result = $insertstmt->execute([$firstname,$lastname,$sname,$halqah,0, 0,$date,"غائب","غائب"]);
-        }
-
-        else if ($status == 'absentexecuse'){
-            $insertstmt = $con->prepare("INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,DATE ?,?,?)");
-            $result = $insertstmt->execute([$firstname,$lastname,$sname,$halqah,0, 0,$date,"غائب بعذر","غائب بعذر"]);
-        }
-
-        else if ($status == 'didnttasme3'){
+        if (isset($didnttasmee3)){
             $insertstmt = $con->prepare("INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,DATE ?,?,?)");
             $result = $insertstmt->execute([$firstname,$lastname,$sname,$halqah,0, 0,$date,"لم يسمع","لم يسمع"]);
         }
@@ -77,6 +66,7 @@ else{
 
 <body>
     <div class="container">
+        <p style="text-align:center">اضافة التسميع</p>
     <form action="<?php echo $_SERVER['PHP_SELF']?>" class="formedit" method="POST">
 
         <div class="imgcontainer" style="float:none">
@@ -136,19 +126,13 @@ else{
                     <option value="2022">2022</option>
                 </select>
             </div>
-
         </div>
-
-        <div class="edit" style="margin-top:22px">
-        <label for="status">الحضور</label>
-            <select name="status" id="status">
-                <option value="">حاضر</option>
-                <option value="absent">غائب</option>
-                <option value="absentexecuse">غائب بعذر</option>
-                <option value="didnttasme3">لم يسمع</option>
-            </select>
         
+        <div class="didnttasmee3">
+            <label for="didnttasmee3">لم يسمع</label>
+            <input name ="didnttasmee3" type="checkbox" value="didnttasme3" id ="didnttasmee3">   
         </div>
+             
 
         <p  style="margin-top: 30px; font-weight:bold" >الحفظ</p>
         <div class="edit">
