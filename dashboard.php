@@ -78,7 +78,7 @@
                 <p>الحفظ</p>
                 <div class="boxcontainer">
                     <small>كم سمعت اليوم؟</small>
-                    <input name ="hifz" value="0" type="number" placeholder ="اترك فارغا ان لم تسمع"  autocomplete ="off" step = "0.5" min =0>
+                    <input onkeypress="return onlyNumberKey(event)" name ="hifz" value="0" type="number" placeholder ="اترك فارغا ان لم تسمع"  autocomplete ="off" step = "0.5" min =0>
                 </div>
             </div>
             <div class="clear"></div>
@@ -94,7 +94,7 @@
                 <p>المراجعة</p>
                 <div class="boxcontainer">
                     <small>كم سمعت اليوم؟</small>
-                    <input name = "muraja" value="0" type="number" placeholder ="اترك فارغا ان لم تسمع" autocomplete ="off" step="0.5" min=0>
+                    <input onkeypress="return onlyNumberKey(event)" name = "muraja" value="0" type="number" placeholder ="اترك فارغا ان لم تسمع" autocomplete ="off" step="0.5" min=0>
                 </div>
 
                 <div class="muraja">
@@ -235,3 +235,13 @@
 </body>
 </html>
 
+<script> 
+    function onlyNumberKey(evt) { 
+          
+        // Only ASCII charactar in that range allowed 
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode 
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
+            return false; 
+        return true; 
+    } 
+</script>

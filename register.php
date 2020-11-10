@@ -121,13 +121,13 @@ $errors = array('firstname'=>'','lastname'=>'', 'username'=>'', 'halqah'=>'', 'h
             <div class="hifz">
                 <small class="bad"><?php echo $errors['hifz']?></small>
                 <label for="hifzinput">ورد الحفظ اليومي</label>
-                <input type="number" name="hifz" class="hifzinput" id="hifzinput"  autocomplete = "off" step="0.5" min=0 value=0 >
+                <input type="number" name="hifz" class="hifzinput" id="hifzinput"  autocomplete = "off" step="0.5" min=0 value=0 onkeypress="return onlyNumberKey(event)">
             </div>
 
             <div class="murajaa">
                 <small class="bad"><?php echo $errors['muraja']?></small>
                 <label for="murajaainput">ورد المراجعة اليومي</label>
-                <input type="number" name="murajaa" class="murajaainput" id="murajaainput" autocomplete = "off" step="0.5" min=0 value=0>
+                <input type="number" name="murajaa" class="murajaainput" id="murajaainput" autocomplete = "off" step="0.5" min=0 value=0 onkeypress="return onlyNumberKey(event)">
             </div>
 
             <div class="pass">
@@ -147,3 +147,14 @@ $errors = array('firstname'=>'','lastname'=>'', 'username'=>'', 'halqah'=>'', 'h
     
 </body>
 </html>
+
+<script> 
+    function onlyNumberKey(evt) { 
+          
+        // Only ASCII charactar in that range allowed 
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode 
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
+            return false; 
+        return true; 
+    } 
+</script>

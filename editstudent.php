@@ -38,12 +38,12 @@ if(isset($_GET['userid'])){
      
         <div class="edit">
             <label for="hifzinput">ورد الحفظ</label>
-            <input type="number" name="hifz" class="hifzinput" id="hifzinput" autocomplete = "off" value ="<?php echo $row['hifz']?>" step='0.1' min ='0' >
+            <input onkeypress="return onlyNumberKey(event)" type="number" name="hifz" class="hifzinput" id="hifzinput" autocomplete = "off" value ="<?php echo $row['hifz']?>" step='0.1' min ='0' >
         </div>
 
         <div class="edit">
             <label for="murajainput">ورد المراجعة</label>
-            <input type="number" name="muraja" class="murajainput" id="murajainput" autocomplete ="off" value = "<?php echo $row['muraja']?>" step='0.1' min ='0'>
+            <input onkeypress="return onlyNumberKey(event)" type="number" name="muraja" class="murajainput" id="murajainput" autocomplete ="off" value = "<?php echo $row['muraja']?>" step='0.1' min ='0'>
         </div>
         
         <div class="submitbutton">
@@ -57,3 +57,15 @@ if(isset($_GET['userid'])){
 </body>
 </html>
         
+  
+
+<script> 
+    function onlyNumberKey(evt) { 
+          
+        // Only ASCII charactar in that range allowed 
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode 
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
+            return false; 
+        return true; 
+    } 
+</script>

@@ -142,7 +142,7 @@ else{
 
         <div class="edit">
             <label for="hifzinput">عدد الصفحات</label>
-            <input type="number" name="hifzamount" class="hifzinput" id="hifzinput" autocomplete ="off" step="0.01" min=0>
+            <input onkeypress="return onlyNumberKey(event)" type="number" name="hifzamount" class="hifzinput" id="hifzinput" autocomplete ="off" step="0.01" min=0>
         </div>
 
         <p style="margin-top: 30px;font-weight:bold">المراجعة</p>
@@ -153,7 +153,7 @@ else{
 
         <div class="edit">
             <label for="hifzinput">عدد الصفحات</label>
-            <input type="number" name="murajaamount" class="hifzinput" id="hifzinput" autocomplete ="off" step="0.01" min=0>
+            <input onkeypress="return onlyNumberKey(event)" type="number" name="murajaamount" class="hifzinput" id="hifzinput" autocomplete ="off" step="0.01" min=0>
         </div>
 
       
@@ -171,3 +171,14 @@ else{
 </html>
         
     
+
+<script> 
+    function onlyNumberKey(evt) { 
+          
+        // Only ASCII charactar in that range allowed 
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode 
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
+            return false; 
+        return true; 
+    } 
+</script>
