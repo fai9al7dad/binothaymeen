@@ -322,14 +322,18 @@ input::placeholder {
 }
 
 input {
-    -webkit-appearance: none !important;
-    -moz-appearance: none !important ;
+    -webkit-appearance: none;
 }
+
 
 select{
     -webkit-appearance: none !important;
-    -moz-appearance: none !important ;
 }
+
+input[type="checkbox"]{
+    appearance: checkbox !important
+}
+
 @media(max-width :600px){
     .imgcontainer img{
         width: 135px;
