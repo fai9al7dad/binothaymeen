@@ -113,6 +113,7 @@ $errors = array('firstname'=>'','lastname'=>'', 'username'=>'', 'halqah'=>'', 'h
                     <option value="thanea">حلقة ثاني ثانوي</option>
                     <option value="thaltha">حلقة ثالث ثانوي</option>
                     <option value="jam">حلقة الجامعيين</option>
+                    <option value="hofaz">حلقة الحفاظ</option>
                 </select>
                 
 
