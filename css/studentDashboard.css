@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
 *{
     box-sizing: border-box;
     font-family: 'Tajawal', sans-serif;
@@ -18,13 +21,10 @@ header{
     height: 75px;
 }
 
-header .hcontainer{
-    display: flex;
-    flex-direction: row !important;
-    justify-content: space-between;
-}
+
 
 header .hcontainer a{
+    float: right;
     margin-top:10px;
     margin-right: 20px;
     font-size: 34px;
@@ -33,7 +33,7 @@ header .hcontainer a{
 
 header img{
     width: 99px;
-    align-items: flex-start;
+    float:left
 }
 
 .welcome {
