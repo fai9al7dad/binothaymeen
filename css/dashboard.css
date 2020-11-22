@@ -136,27 +136,7 @@ form{
 .editstudent:hover{
     text-decoration: underline;
 }
-.statisticsbox{
-    margin-bottom: 20px;
-    background: #2D3357;
-    border-radius: 26px;
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    padding: 16px 25px;
-    color: #5B628B;
-    list-style: none;
-}
 
-.statisticsbox .date{
-    float: right;
-    color: #5B628B;
-}
-
-.statisticsbox .hifz,.muraja{
-    text-align: left;
-    color: #5B628B;
-}
 
 .good{
     color: rgb(36, 167, 36) !important;

@@ -87,7 +87,7 @@ else{
 
         <p style="margin-top:25px !important; margin-bottom:0">فرز الحصاد بواسطة التاريخ</p>
         <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
-            <div class="farzhasad" style="display:flex;flex-direcation:column; justify-content:flex-end">
+            <div class="farzhasad" style="display:flex; justify-content:flex-end">
                 <div class="flexcol">
                     <label for="todate">الى</label>
                     <input type="date" name="todate" id="todate">

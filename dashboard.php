@@ -30,12 +30,20 @@
         $muraja = htmlspecialchars($_POST['muraja']);
         $htasmee3 = htmlspecialchars($_POST['hifztasme3']);
         $mtasmee3 = htmlspecialchars($_POST['murajatasme3']);
+        $date = $_POST['tdate'];
 
-        $stmt = $con->prepare("INSERT INTO wird (firstname,lastname,hifz,muraja,date,halqah,username, hifztasmee3,murajatasmee3) VALUES(?,?,?,?,now(),?,?,?,?)");
+        if ($date == "today"){
+            $stmt = $con->prepare("INSERT INTO wird (firstname,lastname,hifz,muraja,date,halqah,username, hifztasmee3,murajatasmee3) VALUES(?,?,?,?,now(),?,?,?,?)");
        
-        $stmt->execute(array($firstname,$lastname,$hifz,$muraja,$halqah,$username,$htasmee3,$mtasmee3));
-        echo '<p style="text-align:center;"> تم تسجيل وردك بنجاح</p>';
-
+            $stmt->execute(array($firstname,$lastname,$hifz,$muraja,$halqah,$username,$htasmee3,$mtasmee3));
+            echo '<p style="text-align:center;"> تم تسجيل وردك بنجاح</p>';
+        }
+        else{
+            $stmt = $con->prepare("INSERT INTO wird (firstname,lastname,hifz,muraja,date,halqah,username, hifztasmee3,murajatasmee3) VALUES(?,?,?,?,curdate() -1 ,?,?,?,?)");
+       
+            $stmt->execute(array($firstname,$lastname,$hifz,$muraja,$halqah,$username,$htasmee3,$mtasmee3));
+            echo '<p style="text-align:center;"> تم تسجيل وردك بنجاح</p>';
+        }
     }
     
 ?>
@@ -45,47 +53,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/studentDashboard.css">
     <link rel="icon" href="images/logo1.png" type="image/png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
 
     <title><?php echo basename($_SERVER['PHP_SELF'])?></title>
 </head>
 <body>
-
-    <div class="container">
-
         <!--  الهيدر  -->
 
         <header>
+            <div class="hcontainer">
+                <img src="images/logo1.png" alt="logo">
+                <a href="logout.php">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+           
+        </header>  
+
+        <div class="container">
+
             <div class="welcome">
                 <h3>مرحبا</h3>
                 <h1><?php echo $row["firstname"] . ' ' . $row['lastname']; ?></h1>
-                <a href="logout.php"><p style ="font-size:12px;">تسجيل الخروج</p></a>
             </div>
-            <div class="imgcontainer">
-                <img src="images/logo1.png" alt="logo">
-            </div>
-            <div class="clear"></div>
-
-        </header>  
+            
+     
     
-        <div class="clear"></div>
-
         <!--  تسجيل الحفظ والمراجعة والتسميع -->
 
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method = "POST">
             <div class="hifz">
                 <p>الحفظ</p>
                 <div class="boxcontainer">
-                    <small>كم سمعت اليوم؟</small>
-                    <input onkeypress="return onlyNumberKey(event)" name ="hifz" value="0" type="number" placeholder ="اترك فارغا ان لم تسمع"  autocomplete ="off" step = "0.5" min =0>
+                    <label for="hifz">كم سمعت اليوم؟</label>
+                    <input id="hifz" onkeypress="return onlyNumberKey(event)" name ="hifz" value="0" type="number" required  autocomplete ="off" step = "0.5" min =0>
                 </div>
             </div>
-            <div class="clear"></div>
 
             <div class="hifz">
                 <div class="boxcontainer">
-                    <small>من فين لفين؟</small>
+                    <label for="hifztasmee3">من فين لفين؟</label>
                     <input id = "hifztasmee3" name ="hifztasme3" type="text" default = null placeholder ="اترك فارغا ان لم تسمع" autocomplete ="off">
                 </div>
             </div>
@@ -93,141 +103,175 @@
             <div class="muraja">
                 <p>المراجعة</p>
                 <div class="boxcontainer">
-                    <small>كم سمعت اليوم؟</small>
-                    <input onkeypress="return onlyNumberKey(event)" name = "muraja" value="0" type="number" placeholder ="اترك فارغا ان لم تسمع" autocomplete ="off" step="0.5" min=0>
+                    <label for ="muraja">كم سمعت اليوم؟</label>
+                    <input onkeypress="return onlyNumberKey(event)" name = "muraja"  id ="muraja" value="0" type="number"  required autocomplete ="off" step="0.5" min=0>
                 </div>
 
                 <div class="muraja">
                 <div class="boxcontainer">
-                    <small>من فين لفين؟</small>
+                    <label for="murajatasmee3">من فين لفين؟</label>
                     <input id = "murajatasmee3" name ="murajatasme3" type="text" placeholder ="اترك فارغا ان لسمع" autocomplete ="off">
                 </div>
             </div>
                 
+            <div class="datebuttonscontainer">
+                <label class="datebuttons">
+                    <input type="radio" name="tdate" value="yesterday" >
+                    <span class="checkmark"></span>
+                    امس
+                </label>
+
+                <label class="datebuttons">
+                    <input type="radio" checked="checked" name="tdate" value="today">
+                    <span class="checkmark"></span>
+                    اليوم
+                </label>
             </div>
-  
 
             <div class="submitbutton">
-                <input name ="create" type="submit" value="سجل وردك" class="mainbutton">
+                <button name ="create" type="submit" class="mainbutton"> سجل <i class="fas fa-plus"></i>
+                </button>
             </div>
         </form>
 
         <!-- الإحصائيات -->
 
         <!-- احصائيات الحفظ -->
+    
+         <table class="statisticsbox">
+             <tr>
+                <th>المقدار</th>
+                <th>التسميع</th>
+                <th>التاريخ</th>
+             </tr>
 
-         <p style ="text-align:right; margin-top:57px">احصائيات الحفظ</p>
-         <ul class="statisticsbox">
-            <div class="hifzstats">
                 <?php 
-                    // DATE
-                    $stmt = $con->prepare("SELECT hifz,muraja,date,hifztasmee3 FROM wird WHERE username = '$username'");
+                    // DATe
+                    $stmt = $con->prepare("SELECT hifz,muraja,date,hifz,hifztasmee3,wirdid FROM wird WHERE username = '$username'");
                     $stmt->execute();
-                    
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                        echo "<li class = 'date' style=clear:right>" .$row['date']. ' | '. $row['hifztasmee3'] ."</li>";
-                    }
-                    
-
-                    $stmt = $con->prepare("SELECT hifz,muraja,date,hifz FROM wird WHERE username = '$username'");
-                    $stmt->execute();
-
-                    // AMOUNT
-
                     $stmt2 = $con->prepare("SELECT hifz FROM users WHERE username = '$username'");
                     $stmt2->execute();
                     $hamount = $stmt2->fetch();
-                    
-                    $late = 0;    
+                    $late=0;
+
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                        echo '<tr>';
+
+
                         if ( (float)$row['hifz'] > (float)$hamount['hifz']){
-                            echo "<li class = 'hifz good' style ='clear:left'>" . $row['hifz'] . "</li>";
+                            echo "<td class = 'hifz good'>" . $row['hifz'] . "</td>";
                             $ajz = $row['hifz'] - $hamount['hifz'];
                             $late -= $ajz;
                         }
+
                         elseif ((float)$row['hifz'] < (float)$hamount['hifz']){
-                            echo "<li class = 'hifz bad' style ='clear:left'>" . $row['hifz'] ."</li>"; 
+                            echo "<td class = 'hifz bad'>" . $row['hifz'] ."</td>"; 
                             $ajz = $row['hifz'] - $hamount['hifz'];
                             $late -= $ajz;
                         }
                         else{
-                            echo "<li class = 'hifz' style ='clear:left'>" . $row['hifz'] ."</li>"; 
+                            echo "<td class = 'hifz'>" . $row['hifz'] ."</td>"; 
                         }
+
+                        echo "<td class>" .$row['hifztasmee3'] ."</td>";
+                        echo "<td class = 'date'>" .$row['date'] ."</td>";
+
+
+                        echo '</tr>';
                     }
+                    echo "<div class='ajz'>";
+                    
+                    if ($late>0){
+                        echo
+                            '<p class="late"> ' .$late .' :مقدار العجز  </p>';
+                    }
+                    elseif ($late>50){
+                        echo
+                            '<p class="biglate"> '.$late. ' :مقدار العجز  </p>';
+                    }
+                    else{
+                        echo
+                            '<p class="nolate"> '.$late. ' :مقدار العجز  </p>';
+                    }
+
+                    echo '
+                        <p>احصائيات الحفظ</p>
+                    </div>
+                    ';
                 ?>
+         
+        </table>
 
-            </div>
-
-            <div class="ajz">
-                <hr class="hrstyle">
-                <p style="float:right; font-size: 16px">مقدار العجز</p>
-             
-                <p style ='float:left; font-size: 16px'>
-                  <?php if ($late<0){
-                        echo $late =0;
-                      }else{
-                          echo (float)$late;
-                      }
-                    ?></p>
-            </div>
-        </ul>
 
         <!-- احصائيات المراجعة -->
-        
-         <p style ="text-align:right; margin-top:57px">احصائيات المراجعة</p>
-
-         <ul class="statisticsbox">
-            <div class="murajastats">
-                
-                <?php 
-                    // DATE
-                    $stmt = $con->prepare("SELECT hifz,muraja,date,murajatasmee3 FROM wird WHERE username = '$username'");
-                    $stmt->execute();
                     
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                        echo "<li class = 'date' style='clear:right'>" . $row['date'] . ' | '. $row['murajatasmee3'] ."</li>";
-                    }
+         <table class="statisticsbox">
+             <tr>
+                <th>المقدار</th>
+                <th>التسميع</th>
+                <th>التاريخ</th>
+             </tr>
 
-                    $stmt = $con->prepare("SELECT hifz,muraja,date FROM wird WHERE username = '$username'");
+                <?php 
+                    $stmt = $con->prepare("SELECT hifz,muraja,date,hifz,murajatasmee3 FROM wird WHERE username = '$username'");
                     $stmt->execute();
-
-                    // AMOUNT
-
                     $stmt2 = $con->prepare("SELECT muraja FROM users WHERE username = '$username'");
                     $stmt2->execute();
-                    $hamount = $stmt2->fetch();
-                    
-                    $late = 0;
+                    $mamount = $stmt2->fetch();
+                    $late=0;
+
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                        if ( (float)$row['muraja'] > (float)$hamount['muraja']){
-                            echo "<li class = 'muraja good' style ='clear:left'>" . $row['muraja'] ."</li>";
-                            $ajz = $row['muraja'] - $hamount['muraja'];
+                        echo '<tr>';
+                        
+ 
+                        if ( (float)$row['muraja'] > (float)$mamount['muraja']){
+                            echo "<td class = 'muraja good'>" . $row['muraja'] . "</td>";
+                            $ajz = $row['muraja'] - $mamount['muraja'];
                             $late -= $ajz;
                         }
-                        elseif ((float)$row['muraja'] < (float)$hamount['muraja']){
-                            echo "<li class = 'muraja bad' style ='clear:left'>" . $row['muraja'] ."</li>"; 
-                            $ajz = $row['muraja'] - $hamount['muraja'];
+
+                        elseif ((float)$row['muraja'] < (float)$mamount['muraja']){
+                            echo "<td class = 'muraja bad'>" . $row['muraja'] ."</td>"; 
+                            $ajz = $row['muraja'] - $mamount['muraja'];
                             $late -= $ajz;
                         }
                         else{
-                            echo "<li class = 'muraja' style ='clear:left'>" . $row['muraja'] ."</li>"; 
+                            echo "<td class = 'muraja'>" . $row['muraja'] ."</td>"; 
                         }
+
+                        echo "<td class>" .$row['murajatasmee3'] ."</td>";
+                        echo "<td class = 'date'>" .$row['date'] ."</td>";
+
+
+                        echo '</tr>';
                     }
+                    echo "<div class='ajz'>";
+                    
+                    if ($late>0){
+                        echo
+                            '<p class="late"> ' .$late .' :مقدار العجز  </p>';
+                    }
+                    elseif ($late>50){
+                        echo
+                            '<p class="biglate"> '.$late. ' :مقدار العجز  </p>';
+                    }
+                    else{
+                        echo
+                            '<p class="nolate"> '.$late. ' :مقدار العجز  </p>';
+                    }
+
+                    echo '
+                        <p>احصائيات المراجعة</p>
+                    </div>
+                    ';
+                    
                 ?>
-            </div> 
-            
-            <!-- حساب العجز -->
-            <div class="ajz">
-                <hr class="hrstyle">
-                <p style="float:right; font-size: 16px">مقدار العجز</p>
-                <p style ='float:left; font-size: 16px'>
-                  <?php if ($late<0){
-                        echo $late =0;
-                      }else{
-                          echo (float)$late;
-                      }
-                    ?></p>
-            </div>
+
+
+         
+        </table>
+     
+      
         </ul>  
         
 
