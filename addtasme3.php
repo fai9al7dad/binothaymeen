@@ -72,6 +72,8 @@ else{
         <div class="imgcontainer" style="float:none">
             <img src="images/logo1.png" alt="logo">
         </div>
+        
+        <a  href ="nottasmee3.php" class="addtasme3"> تسجيل الغير مسمعين <i class="fas fa-plus"></i></a> 
 
         <div class="edit">
             <label for="studentname"> اسم الطالب</label>
