@@ -256,7 +256,16 @@ a{
     background:#ff000042;
     color:crimson;
 }
-
+ 
+.helpermessage{
+    margin-bottom: 14px;
+    background: #f5b5b9;
+    color: crimson;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+}
 
 
 @media only screen and (min-width: 1300px){

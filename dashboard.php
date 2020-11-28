@@ -156,7 +156,7 @@
 
                 <?php 
                     // DATe
-                    $stmt = $con->prepare("SELECT hifz,muraja,date,hifz,hifztasmee3,wirdid FROM wird WHERE username = '$username'");
+                    $stmt = $con->prepare("SELECT hifz,muraja,date,hifz,hifztasmee3,wirdid,isPLus FROM wird WHERE username = '$username'");
                     $stmt->execute();
                     $stmt2 = $con->prepare("SELECT hifz FROM users WHERE username = '$username'");
                     $stmt2->execute();
@@ -165,20 +165,26 @@
 
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                         echo '<tr>';
-                        
+                        $isPlus = $row['isPLus'];
 
-                        if ( (float)$row['hifz'] > (float)$hamount['hifz']){
+
+                        if($isPlus == 'set'){
+                            echo "<td class = 'hifz good'>" . $row['hifz'] . "</td>";
+                            $late -= $row['hifz'];
+                        }
+
+                        if ($isPlus != 'set' && ((float)$row['hifz'] > (float)$hamount['hifz'])){
                             echo "<td class = 'hifz good'>" . $row['hifz'] . "</td>";
                             $ajz = $row['hifz'] - $hamount['hifz'];
                             $late -= $ajz;
                         }
 
-                        elseif ((float)$row['hifz'] < (float)$hamount['hifz']){
+                        elseif ($isPlus != 'set' && ((float)$row['hifz'] < (float)$hamount['hifz'])){
                             echo "<td class = 'hifz bad'>" . $row['hifz'] ."</td>"; 
                             $ajz = $row['hifz'] - $hamount['hifz'];
                             $late -= $ajz;
                         }
-                        else{
+                        else if ($isPlus != 'set' && ((float)$row['hifz'] == (float)$hamount['hifz'])){
                             echo "<td class = 'hifz'>" . $row['hifz'] ."</td>"; 
                         }
 
@@ -189,24 +195,29 @@
                         echo '</tr>';
                     }
                     echo "<div class='ajz'>";
-                    
-                    if ($late>0){
+                   
+                    if ($late>0 && $late < 50){
                         echo
                             '<p class="late"> ' .$late .' :مقدار العجز  </p>';
                     }
-                    elseif ($late>50){
+                    else if ($late>=50){
+                        $helperDiv = '<div class="helpermessage">لديك عجز عالي، استعن بالله ولا تعجز</div>';
                         echo
                             '<p class="biglate"> '.$late. ' :مقدار العجز  </p>';
                     }
                     else{
+                        $late=0;
                         echo
                             '<p class="nolate"> '.$late. ' :مقدار العجز  </p>';
                     }
 
                     echo '
-                        <p>احصائيات الحفظ</p>
-                    </div>
-                    ';
+                        <p>احصائيات المراجعة</p>
+                    </div>';
+                    if(isset($helperDiv)){
+                        echo $helperDiv;
+                    }
+
                 ?>
          
         </table>
@@ -267,20 +278,24 @@
                         echo
                             '<p class="late"> ' .$late .' :مقدار العجز  </p>';
                     }
-                    else if ($late>50){
+                    else if ($late>=50){
+                        $helperDiv = '<div class="helpermessage">لديك عجز عالي، استعن بالله ولا تعجز</div>';
                         echo
                             '<p class="biglate"> '.$late. ' :مقدار العجز  </p>';
                     }
                     else{
+                        $late=0;
                         echo
                             '<p class="nolate"> '.$late. ' :مقدار العجز  </p>';
                     }
 
                     echo '
                         <p>احصائيات المراجعة</p>
-                    </div>
-                    ';
-                    
+                    </div>';
+                    if(isset($helperDiv)){
+                        echo $helperDiv;
+                    }
+
                 ?>
 
 
