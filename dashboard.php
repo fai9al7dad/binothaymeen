@@ -133,8 +133,8 @@
                 </label>
             </div>
 
-            <div class="plustasme" style="margin-top:20px">
-                <label for="plustasmee3"> <small style="color:#ababab"> (لايحسب عجز) </small> تسميع زائد؟</label>
+            <div class="plustasme" style="margin-bottom:26px;margin-top:20px">
+                <label for="plustasmee3">  تسميع زائد؟ <small style="color:#ababab"> لايحسب عجز </small></label>
                 <input type="checkbox" name="plustasmee3" id="plustasmee3">
             </div>
 
