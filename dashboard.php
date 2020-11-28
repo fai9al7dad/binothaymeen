@@ -13,6 +13,8 @@
         $halqah = $row['halqah'];
         $groupID = $row['groupID'];
 
+
+
         if($groupID > 0 ){
             $_SESSION['username'] = $username;
             header('Location:filters/daily.php');
@@ -31,21 +33,24 @@
         $htasmee3 = htmlspecialchars($_POST['hifztasme3']);
         $mtasmee3 = htmlspecialchars($_POST['murajatasme3']);
         $date = $_POST['tdate'];
+        $isPlus = isset($_POST['plustasmee3']) ? 'set' : 'notset';
+
 
         if ($date == "today"){
-            $stmt = $con->prepare("INSERT INTO wird (firstname,lastname,hifz,muraja,date,halqah,username, hifztasmee3,murajatasmee3) VALUES(?,?,?,?,now(),?,?,?,?)");
+            $stmt = $con->prepare("INSERT INTO wird (firstname,lastname,hifz,muraja,date,halqah,username, hifztasmee3,murajatasmee3,isPLus) VALUES(?,?,?,?,now(),?,?,?,?,?)");
        
-            $stmt->execute(array($firstname,$lastname,$hifz,$muraja,$halqah,$username,$htasmee3,$mtasmee3));
+            $stmt->execute(array($firstname,$lastname,$hifz,$muraja,$halqah,$username,$htasmee3,$mtasmee3,$isPlus));
             echo '<p style="text-align:center;"> تم تسجيل وردك بنجاح</p>';
         }
         else{
-            $stmt = $con->prepare("INSERT INTO wird (firstname,lastname,hifz,muraja,date,halqah,username, hifztasmee3,murajatasmee3) VALUES(?,?,?,?,curdate() -1 ,?,?,?,?)");
+            $stmt = $con->prepare("INSERT INTO wird (firstname,lastname,hifz,muraja,date,halqah,username, hifztasmee3,murajatasmee3,isPLus) VALUES(?,?,?,?,curdate() -1 ,?,?,?,?,?)");
        
-            $stmt->execute(array($firstname,$lastname,$hifz,$muraja,$halqah,$username,$htasmee3,$mtasmee3));
+            $stmt->execute(array($firstname,$lastname,$hifz,$muraja,$halqah,$username,$htasmee3,$mtasmee3,$isPlus));
+            
             echo '<p style="text-align:center;"> تم تسجيل وردك بنجاح</p>';
         }
     }
-    
+
 ?>
 
 <!DOCTYPE html>
@@ -128,6 +133,11 @@
                 </label>
             </div>
 
+            <div class="plustasme" style="margin-top:20px">
+                <label for="plustasmee3"> <small style="color:#ababab"> (لايحسب عجز) </small> تسميع زائد؟</label>
+                <input type="checkbox" name="plustasmee3" id="plustasmee3">
+            </div>
+
             <div class="submitbutton">
                 <button name ="create" type="submit" class="mainbutton"> سجل <i class="fas fa-plus"></i>
                 </button>
@@ -137,7 +147,6 @@
         <!-- الإحصائيات -->
 
         <!-- احصائيات الحفظ -->
-    
          <table class="statisticsbox">
              <tr>
                 <th>المقدار</th>
@@ -156,7 +165,7 @@
 
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                         echo '<tr>';
-
+                        
 
                         if ( (float)$row['hifz'] > (float)$hamount['hifz']){
                             echo "<td class = 'hifz good'>" . $row['hifz'] . "</td>";
@@ -213,32 +222,39 @@
              </tr>
 
                 <?php 
-                    $stmt = $con->prepare("SELECT hifz,muraja,date,hifz,murajatasmee3 FROM wird WHERE username = '$username'");
+                    $stmt = $con->prepare("SELECT hifz,muraja,date,hifz,murajatasmee3,isPLus FROM wird WHERE username = '$username'");
                     $stmt->execute();
+
                     $stmt2 = $con->prepare("SELECT muraja FROM users WHERE username = '$username'");
                     $stmt2->execute();
                     $mamount = $stmt2->fetch();
                     $late=0;
-
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                        $isPlus = $row['isPLus'];
+
                         echo '<tr>';
-                        
- 
-                        if ( (float)$row['muraja'] > (float)$mamount['muraja']){
+
+                        if($isPlus == 'set'){
+                            echo "<td class = 'muraja good'>" . $row['muraja'] . "</td>";
+                            $late -= $row['muraja'];
+                        }
+
+                        if ($isPlus != 'set' && ((float)$row['muraja'] > (float)$mamount['muraja'])){
                             echo "<td class = 'muraja good'>" . $row['muraja'] . "</td>";
                             $ajz = $row['muraja'] - $mamount['muraja'];
                             $late -= $ajz;
                         }
 
-                        elseif ((float)$row['muraja'] < (float)$mamount['muraja']){
+                        else if ($isPlus != 'set' && ((float)$row['muraja'] < (float)$mamount['muraja'])){
                             echo "<td class = 'muraja bad'>" . $row['muraja'] ."</td>"; 
                             $ajz = $row['muraja'] - $mamount['muraja'];
                             $late -= $ajz;
                         }
-                        else{
+                        else if ($isPlus != 'set' && ((float)$row['muraja'] == (float)$mamount['muraja'])){
                             echo "<td class = 'muraja'>" . $row['muraja'] ."</td>"; 
                         }
 
+        
                         echo "<td class>" .$row['murajatasmee3'] ."</td>";
                         echo "<td class = 'date'>" .$row['date'] ."</td>";
 
@@ -247,11 +263,11 @@
                     }
                     echo "<div class='ajz'>";
                     
-                    if ($late>0){
+                    if ($late>0 && $late < 50){
                         echo
                             '<p class="late"> ' .$late .' :مقدار العجز  </p>';
                     }
-                    elseif ($late>50){
+                    else if ($late>50){
                         echo
                             '<p class="biglate"> '.$late. ' :مقدار العجز  </p>';
                     }
