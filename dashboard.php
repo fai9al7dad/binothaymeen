@@ -111,11 +111,11 @@
                     <label for ="muraja">كم سمعت اليوم؟</label>
                     <input onkeypress="return onlyNumberKey(event)" name = "muraja"  id ="muraja" value="0" type="number"  required autocomplete ="off" step="0.5" min=0>
                 </div>
-
-                <div class="muraja">
+            </div>
+            <div class="muraja">
                 <div class="boxcontainer">
                     <label for="murajatasmee3">من فين لفين؟</label>
-                    <input id = "murajatasmee3" name ="murajatasme3" type="text" placeholder ="اترك فارغا ان لسمع" autocomplete ="off">
+                    <input id = "murajatasmee3" name ="murajatasme3" type="text" placeholder ="اترك فارغا ان لم تسمع" autocomplete ="off">
                 </div>
             </div>
                 
@@ -137,7 +137,6 @@
                 <label for="plustasmee3">  تسميع زائد؟ <small style="color:#ababab"> لايحسب عجز </small></label>
                 <input type="checkbox" name="plustasmee3" id="plustasmee3">
             </div>
-
             <div class="submitbutton">
                 <button name ="create" type="submit" class="mainbutton"> سجل <i class="fas fa-plus"></i>
                 </button>
