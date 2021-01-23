@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+body{
+    background: #252A48;
+    font-family: 'Tajawal', sans-serif;
+    margin-bottom: 40px;
+}
+
+.container{
+    margin:20px 20px 20px 20px;
+}
+.clear:after {
+    clear:both;
+    content:".";
+    display:block;
+    height:0;
+    line-height:0;
+    visibility:hidden;
+  }
+.imgcontainer{
+    float: left;
+}
+img{
+    width: 148px;
+    height: 129px;
+}
+
+.welcome{
+    float: right;
+    text-align: right;
+}
+.welcome h3{
+    color: #5B628B;
+    font-size: 20px;
+}
+.welcome h1{
+    color:#fff;
+}
+.welcome a{
+    text-decoration: none;
+}
+.welcome p:hover{
+    transition: all ease-in-out 0.3s;
+    color:#cccccc
+}
+
+
+.date {
+    text-align: center;
+    color: #fff
+}
+p {
+    color: #A4ABCB;
+    font-size: 20px;
+    text-align: right;
+    margin-top: 10px;
+}
+small{
+    color:  #5B628B;
+}
+hr.hrstyle{
+    border:none;
+    border-top: 1px solid #5B628B;
+}
+
+form{
+    text-align: right;
+
+}
+
+.boxcontainer{
+    height: 93px;
+    margin-bottom: 20px;
+    background: #2D3357;
+    border-radius: 26px;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    padding: 16px 25px;
+}
+
+.boxcontainer small{
+    font-size: 16px ;
+}
+
+.boxcontainer input{
+    margin-top: 23px;
+    background: #5B628B;
+    border: 0;
+    border-radius: 10px;
+    color: #A4ABCB;
+    text-align: center;
+    height: 21px;
+}
+
+.boxcontainer input:focus{
+    outline: none;
+}
+
+::placeholder{
+    font-family: 'Tajawal';
+    color: #A4ABCB;
+    opacity: 0.6;
+}
+
+.submitbutton{
+    display: flex;
+    justify-content: center;
+}
+
+.submitbutton input{
+    font-family: 'Tajawal';
+    background:#2D3357;
+    border-radius: 18px;
+    border: 0;
+    color: #A4ABCB;
+    height: 40px;
+    width: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.submitbutton input:hover{
+    transition: all ease-in-out 0.3s;
+    background:#5B628B;
+}
+
+/* stats */
+
+.editstudent{
+    color:#2997ff;
+    text-decoration:none
+}
+.editstudent:hover{
+    text-decoration: underline;
+}
+
+
+.good{
+    color: rgb(36, 167, 36) !important;
+}
+
+.bad{
+    color: rgb(204, 67, 67) !important;
+}
+
+.ajz p{
+    margin-top: 0;
+}
+
+table {
+    background: #5B628B;
+    border-collapse: collapse;
+    border-radius: 10px;
+    width: 100%;
+    color: #A4ABCB
+}
+
+td, th {
+    border: 1px solid none;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #2D3357;
+}
+
+.studentsearch {
+    color:#A4ABCB;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
+
+.studentsearch input{
+    text-align: right;
+}
+
+
+#filter, .filtersearch{
+    padding:5px 10px;
+    border:1px solid;
+    border-radius: 5px;
+    background: #252A48;
+    color: #A4ABCB;
+    font-family: 'Tajawal', sans-serif;
+    text-align: right;
+    cursor: pointer;
+}
+#filter:focus{
+    outline:none;
+}
+
+.filtersearch:focus{
+    outline:none;
+}
+select{
+    direction: rtl;
+}
+
+.filtersearch:hover{
+    color: #fff;
+    background: #2997ff;
+    transition: 0.2s ease-in-out;
+    border-color: #2997ff;
+}
+
+
+
+/* edit students */
+
+.imgcontainer{ 
+    float: left;   
+    display: flex;
+    justify-content: center;    
+
+}
+
+.imgcontainer img{
+    width: 250px;
+    height: 215px;
+}
+
+.edit{
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.edit input, select{
+    text-align: right;
+    border: none;
+    border-bottom: 1px solid #8796bd;
+    background-color: #252a48;
+    padding: 7px;
+    color: #8796bd;
+}
+
+.edit label{
+    margin: 10px 0 !important;
+    color: #A4ABCB;
+
+
+}
+
+.edit select{
+    margin-left: 20px;
+    font-size: 16px;
+    font-family: 'tajawal';
+}
+.addtasme3{
+    padding:5px 10px;
+    margin-left: 20px;
+    border:1px solid;
+    border-radius: 5px;
+    background: #252A48;
+    color: #A4ABCB;
+    font-family: 'Tajawal', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.addtasme3:hover{
+    text-align: right;
+    background: #2997ff;
+    transition: 0.2s ease-in-out;
+    border-color: #2997ff;
+    color:#fff;
+}
+
+
+a{
+    text-decoration: none;
+}
+
+.didnttasmee3{
+    margin-top: 30px;
+    color:#A4ABCB
+}
+
+input::placeholder {
+    text-align: right;
+}
+.farzhasad{
+    margin-bottom: 20px;
+}
+.farzhasad label{
+    color:#A4ABCB;
+}
+
+.flexcol{
+    display: flex;
+    flex-direction: column;
+}
+
+.flexcol input[type="date"]{
+    margin-left: 20px;
+}
+
+input {
+    -webkit-appearance: none;
+}
+
+
+select{
+    -webkit-appearance: none !important;
+}
+
+input[type="checkbox"]{
+    appearance: checkbox !important
+}
+
+@media(max-width :600px){
+    .imgcontainer img{
+        width: 135px;
+        height: 117px;
+    }
+    .container{
+        margin: 20px 5px 20px 5px;
+    }
+    h1{
+        font-size: 20px;
+    }
+}
+
+
+@media(min-width :1300px){
+    .container{
+        margin: 20px 300px 20px 300px;
+    }
+    h1{
+        font-size: 35px;
+    }
+}
