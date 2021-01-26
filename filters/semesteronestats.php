@@ -8,7 +8,6 @@ if(isset($_SESSION['username'])){
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $halqah = $row['halqah'];
-    $user_id = $row['userid'];
     $groupID = $row['groupID'];
 
     if($groupID ==0 ){
@@ -17,13 +16,8 @@ if(isset($_SESSION['username'])){
         exit();
     }
 
-    $stmt = $con->prepare(
-    "SELECT wird_two.wird_id, wird_two.hifz, wird_two.muraja, date, wird_two.hifztasmee3, wird_two.murajatasmee3, 
-    users.halqah, users.firstname, users.lastname, users.username
-    FROM wird_two join users on wird_two.user_id = users.userID
-    where halqah = 'oula'");
+    $stmt = $con->prepare("SELECT wirdid,username,firstname,lastname,hifz,muraja, date, hifztasmee3,murajatasmee3 FROM wird WHERE halqah = '$halqah' order by date desc");
     $stmt->execute();
-    
     if (isset($_POST['filter'])){
         $filter= $_POST['selectfilter'];
         header('Location:' . $filter. '.php');
@@ -31,7 +25,7 @@ if(isset($_SESSION['username'])){
     if(isset($_POST['submit'])){
         $from= $_POST['fromdate'];
         $to =$_POST['todate'];
-        $stmt = $con->prepare("SELECT wirdid,username,firstname,lastname,hifz,muraja,date,hifztasmee3,murajatasmee3 FROM wird_two WHERE halqah = '$halqah' and date between '$from' and '$to' order by date desc");
+        $stmt = $con->prepare("SELECT wirdid,username,firstname,lastname,hifz,muraja,date,hifztasmee3,murajatasmee3 FROM wird WHERE halqah = '$halqah' and date between '$from' and '$to' order by date desc");
         $stmt->execute();
 
     }
@@ -87,7 +81,6 @@ else{
                 <option value="highestmuraja">الاعلى مراجعة</option>
                 <option value="lowesthifz">الاقل حفظا</option>
                 <option value="lowestmuraja">الاقل مراجعة</option>
-                <option value="semesteronestats">الترم الأول</option>
             </select>
 
         </form>
@@ -147,7 +140,7 @@ else{
                     echo 
                         '<tr>
                             
-                        <td class="edit"><a href="../deletewird.php?wirdid='.$row['wird_id'] .'"class="fas fa-minus-square" style="color:#ff5151; font-size:20px"></a></td>';
+                        <td class="edit"><a href="../deletewird.php?wirdid='.$row['wirdid'] .'"class="fas fa-minus-square" style="color:#ff5151; font-size:20px"></a></td>';
                             
                             if ($row['muraja'] >$mamount['muraja']){
                                 echo '<td>' . $mlate =0 . '</td>';
