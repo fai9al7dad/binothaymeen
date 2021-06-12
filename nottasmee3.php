@@ -18,17 +18,14 @@
                     $stmt = $con->prepare("SELECT * FROM users where userid = '$userid'");
                     $stmt->execute();
                     $row=$stmt->fetch();
-                    $firstname = $row['firstname'];
-                    $lastname =$row['lastname'];
-                    $halqah =$row['halqah'];
-                    $username = $row['username'];
+                    $userid = $row['userid'];
                     $date = $_POST['date'];
     
     
                     $insertstmt = $con->prepare(
-                        " INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,?,?,?)
+                        " INSERT INTO wird_two(user_id,hifz,muraja,date,hifztasmee3,murajatasmee3,reading,reading_grade) VALUES (?,?,?,?,?,?,?,?)
                         ");
-                        $result = $insertstmt->execute([$firstname,$lastname,$username,$halqah,0, 0,$date,"لم يسمع","لم يسمع"]);
+                        $result = $insertstmt->execute([$userid,0, 0,$date,"لم يسمع","لم يسمع","لم يقرأ",0]);
                         if ($result){
                             echo '<p style="text-align:center">تم التسجيل بنجاح<a class ="editstudent" href="filters/daily.php"> اذهب الى صفحة التسجيل </a></p>';
                         }

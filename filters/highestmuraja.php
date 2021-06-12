@@ -9,7 +9,7 @@ if(isset($_SESSION['username'])){
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $halqah = $row['halqah'];
 
-    $stmt = $con->prepare("SELECT username,firstname,lastname,date,sum(muraja) FROM wird  WHERE halqah = '$halqah' GROUP BY username ORDER BY sum(muraja) desc");
+    $stmt = $con->prepare("SELECT users.firstname,users.lastname, sum(wird_two.muraja) FROM wird_two left join users on users.userid = wird_two.user_id  WHERE halqah = '$halqah' GROUP BY firstname ORDER BY sum(wird_two.muraja) desc");
     $stmt->execute();
     if (isset($_POST['filter'])){
         $filter= $_POST['selectfilter'];
@@ -85,12 +85,12 @@ else{
 
                     echo
                         '<tr>
-                            <td>' .  $row['sum(muraja)'] . '</td>' .
+                            <td>' .  $row['sum(wird_two.muraja)'] . '</td>' .
                             '<td>'. $row['firstname'] . ' ' . $row['lastname'] .'</td>' .
                             '
                         </tr>';
 
-                        $sum += $row['sum(muraja)'];
+                        $sum += $row['sum(wird_two.muraja)'];
 
                 }
                 ?>

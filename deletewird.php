@@ -4,7 +4,7 @@ session_start();
 
 if(isset($_GET['wirdid'])){
     $id= $_GET['wirdid'];
-    $stmt = $con->prepare("DELETE FROM wird where wirdid = '$id'");
+    $stmt = $con->prepare("DELETE FROM wird_two where wird_id = '$id'");
     $stmt->execute();
     header('Location:filters/daily.php');
 }
@@ -20,7 +20,7 @@ else if(isset($_GET['userid'])){
     $stmt->execute();
 
     // Delete user registerd wird from database
-    $stmt = $con->prepare("DELETE FROM wird where username = '$username'");
+    $stmt = $con->prepare("DELETE FROM wird_id where username = '$username'");
     $stmt->execute();
     header('Location:filters/daily.php');
 }

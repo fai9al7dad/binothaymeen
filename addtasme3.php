@@ -19,24 +19,24 @@ if(isset($_SESSION['username'])){
         $hifzt = htmlspecialchars($_POST['hifztasme3']);
         $hifza = htmlspecialchars($_POST['hifzamount']);
         $murajat =htmlspecialchars($_POST['murajatasme3']);
-        $murajaa =htmlspecialchars($_POST['murajaamount']);
+        $murajaa = htmlspecialchars($_POST['murajaamount']);
         $date = $_POST['year'] .'-'. $_POST['month'] .'-'. $_POST['day'];
+        $reading =  htmlspecialchars($_POST['reading']);;
+        $reading_grade = (int)$reading * 2;
         $didnttasmee3 = $_POST['didnttasmee3'];
         
-        $selectstmt = $con->prepare('SELECT * FROM users where username = ?');
+        $selectstmt = $con->prepare('SELECT userid FROM users where username = ?');
         $selectstmt->execute([$sname]);
         $row= $selectstmt->fetch();
-        $firstname = $row['firstname'];
-        $lastname =$row['lastname'];
-        $halqah =$row['halqah'];
+        $user_id = $row['userid'];
 
         if (isset($didnttasmee3)){
-            $insertstmt = $con->prepare("INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,DATE ?,?,?)");
-            $result = $insertstmt->execute([$firstname,$lastname,$sname,$halqah,0, 0,$date,"لم يسمع","لم يسمع"]);
+            $insertstmt = $con->prepare("INSERT INTO wird_two(user_id,hifz,muraja,date,hifztasmee3,murajatasmee3,reading,reading_grade) VALUES (?,?,?,date,?,?,?,?)");
+            $result = $insertstmt->execute([$user_id,0, 0,$date,"لم يسمع","لم يسمع","لم يقرأ",0]);
         }
         else{
-            $insertstmt = $con->prepare("INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,DATE ?,?,?)");
-            $result = $insertstmt->execute([$firstname,$lastname,$sname,$halqah,$hifza, $murajaa,$date,$hifzt,$murajat]);
+            $insertstmt = $con->prepare("INSERT INTO wird_two(user_id, hifz, muraja, date, hifztasmee3, murajatasmee3, reading, reading_grade) VALUES (?, ?, ?, DATE, ?, ?, ?, ?)");
+            $result = $insertstmt->execute([$user_id,$hifza, $murajaa,$date,$hifzt,$murajat,$reading,$reading_grade]);
     
         }
       
@@ -158,9 +158,13 @@ else{
             <input onkeypress="return onlyNumberKey(event)" type="number" name="murajaamount" class="hifzinput" id="hifzinput" autocomplete ="off" step="0.01" min=0>
         </div>
 
-      
+        <p style="margin-top: 30px;font-weight:bold">القراءة</p>
 
-        
+        <div class="edit">
+            <label for="readinginput">عدد صفحات القراءة</label>
+            <input onkeypress="return onlyNumberKey(event)" type="number" name="reading" class="readinginput" id="readinginput" autocomplete ="off" step="0.01" min=0>
+        </div>
+
         <div class="submitbutton">
             <input name ="submit" type="submit" value="اضف" class="mainbutton">
         </div>

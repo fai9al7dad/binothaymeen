@@ -36,6 +36,16 @@ header img{
     float:left
 }
 
+.textWelcome{
+    text-align: center;
+    font-size: 2rem;
+    color: #03ABB5;
+    background-color: white;
+    padding: 10px 20px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00000017;
+}
 .welcome {
     font-size:20px;
     text-align: right;

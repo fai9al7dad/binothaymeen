@@ -19,14 +19,12 @@ if(isset($_SESSION['username'])){
                 $stmt = $con->prepare("SELECT * FROM users where userid = '$userid'");
                 $stmt->execute();
                 $row=$stmt->fetch();
-                $firstname = $row['firstname'];
-                $lastname =$row['lastname'];
-                $halqah =$row['halqah'];
-                $username = $row['username'];
+                $user_id = $row['userid'];
 
 
-                $insertstmt = $con->prepare("INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,now(),?,?)");
-                $result = $insertstmt->execute([$firstname,$lastname,$username,$halqah,0, 0,"غائب","غائب"]);
+
+                $insertstmt = $con->prepare("INSERT INTO wird_two(user_id,hifz,muraja,date,hifztasmee3,murajatasmee3,reading,reading_grade) VALUES (?,?,?,now(),?,?,?,?)");
+                $result = $insertstmt->execute([$user_id,0, 0,"غائب","غائب","غائب", 0]);
                 if ($result){
                     echo '<p style="text-align:center">تم التسجيل بنجاح<a class ="editstudent" href="filters/daily.php"> اذهب الى صفحة التسجيل </a></p>';
                 }
@@ -37,14 +35,10 @@ if(isset($_SESSION['username'])){
                 $stmt = $con->prepare("SELECT * FROM users where userid = '$userid'");
                 $stmt->execute();
                 $row=$stmt->fetch();
-                $firstname = $row['firstname'];
-                $lastname =$row['lastname'];
-                $halqah =$row['halqah'];
-                $username = $row['username'];
+                $user_id = $row['userid'];
 
-
-                $insertstmt = $con->prepare("INSERT INTO wird(firstname,lastname,username,halqah,hifz,muraja,date,hifztasmee3,murajatasmee3) VALUES (?,?,?,?,?,?,now(),?,?)");
-                $result = $insertstmt->execute([$firstname,$lastname,$username,$halqah,0, 0,"غائب بعذر","غائب بعذر"]);
+                $insertstmt = $con->prepare("INSERT INTO wird_two(user_id,hifz,muraja,date,hifztasmee3,murajatasmee3,reading,reading_grade) VALUES (?,?,?,now(),?,?,?,?)");
+                $result = $insertstmt->execute([$user_id,0, 0,"غائب بعذر","غائب بعذر","غائب بعذر", 0]);
                 if ($result){
                     echo '<p style="text-align:center">تم التسجيل بنجاح<a class ="editstudent" href="filters/daily.php"> اذهب الى صفحة التسجيل </a></p>';
                 }
