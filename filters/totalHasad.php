@@ -109,6 +109,10 @@ else{
                 <select name="selectfilter" id="filter">
                     <option value="daily.php">التسجيل اليومي</option>
                     <option value="totalHasad.php">مجموع الحصاد</option>
+                    <option value="mstwaHasad.php?mstwa=المهرة">المهرة</option>
+                    <option value="mstwaHasad.php?mstwa=الفرقان">الفرقان</option>
+                    <option value="mstwaHasad.php?mstwa=الأترجة">الأترجة</option>
+                    <option value="mstwaHasad.php?mstwa=السراج">السراج</option>
                 </select>
             </form>
         <p>مجموع الحصاد</p>
