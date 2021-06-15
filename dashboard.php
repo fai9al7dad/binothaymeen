@@ -13,6 +13,7 @@
         $lastname = $row['lastname'];
         $halqah = $row['halqah'];
         $groupID = $row['groupID'];
+        $mstwa = $row['mstwa'];
 
 
 
@@ -38,7 +39,15 @@
         $date = $_POST['tdate'];
         $isPlus = isset($_POST['plustasmee3']) ? 'set' : 'notset';
 
-
+        if(!$mtasmee3){
+            $mtasmee3 = 'لا يوجد';
+        }
+        if(!$htasmee3){
+            $htasmee3 = 'لا يوجد';
+        }
+        if(!$reading){
+            $reading = 'لم يقرأ';
+        }
         if ($date == "today"){
             $stmt = $con->prepare("INSERT INTO wird_two (user_id,hifz,muraja,date,hifztasmee3,murajatasmee3,reading,reading_grade,isPLus) VALUES(?,?,?,now(),?,?,?,?,?)");
        
@@ -85,8 +94,10 @@
         <div class="container">
 
             <div class="textWelcome">
-                <span>البرنامج الصيفي</span>
+                <span style="font-weight:bold">البرنامج الصيفي</span>
                 <i class="fas fa-sun"></i>
+                <br>
+                <span style="font-size:1.5rem"><?php echo ' مستوى ' .$mstwa ?></span>
             </div>
             
             <div class="welcome">

@@ -18,56 +18,59 @@
                 echo '<tr>';
                 $isPlus = $row['isPLus'];
 
+                echo "<td class = 'hifz'>" . $row['hifz'] ."</td>"; 
 
-                if($isPlus == 'set'){
-                    echo "<td class = 'hifz good'>" . $row['hifz'] . "</td>";
-                    $late -= $row['hifz'];
-                }
+                // if($isPlus == 'set'){
+                //     echo "<td class = 'hifz good'>" . $row['hifz'] . "</td>";
+                //     $late -= $row['hifz'];
+                // }
 
-                if ($isPlus != 'set' && ((float)$row['hifz'] > (float)$hamount['hifz'])){
-                    echo "<td class = 'hifz good'>" . $row['hifz'] . "</td>";
-                    $ajz = $row['hifz'] - $hamount['hifz'];
-                    $late -= $ajz;
-                }
+                // if ($isPlus != 'set' && ((float)$row['hifz'] > (float)$hamount['hifz'])){
+                //     echo "<td class = 'hifz good'>" . $row['hifz'] . "</td>";
+                //     $ajz = $row['hifz'] - $hamount['hifz'];
+                //     $late -= $ajz;
+                // }
 
-                elseif ($isPlus != 'set' && ((float)$row['hifz'] < (float)$hamount['hifz'])){
-                    echo "<td class = 'hifz bad'>" . $row['hifz'] ."</td>"; 
-                    $ajz = $row['hifz'] - $hamount['hifz'];
-                    $late -= $ajz;
-                }
-                else if ($isPlus != 'set' && ((float)$row['hifz'] == (float)$hamount['hifz'])){
-                    echo "<td class = 'hifz'>" . $row['hifz'] ."</td>"; 
-                }
-
+                // elseif ($isPlus != 'set' && ((float)$row['hifz'] < (float)$hamount['hifz'])){
+                //     echo "<td class = 'hifz bad'>" . $row['hifz'] ."</td>"; 
+                //     $ajz = $row['hifz'] - $hamount['hifz'];
+                //     $late -= $ajz;
+                // }
+                // else if ($isPlus != 'set' && ((float)$row['hifz'] == (float)$hamount['hifz'])){
+                //     echo "<td class = 'hifz'>" . $row['hifz'] ."</td>"; 
+                // }
+                
                 echo "<td class>" .$row['hifztasmee3'] ."</td>";
                 echo "<td class = 'date'>" .$row['date'] ."</td>";
 
 
                 echo '</tr>';
             }
-            echo "<div class='ajz'>";
             
-            if ($late>0 && $late < 50){
-                echo
-                    '<p class="late"> ' .$late .' :مقدار العجز  </p>';
-            }
-            else if ($late>=50){
-                $helperDiv = '<div class="helpermessage">لديك عجز عالي، استعن بالله ولا تعجز</div>';
-                echo
-                    '<p class="biglate"> '.$late. ' :مقدار العجز  </p>';
-            }
-            else{
-                $late=0;
-                echo
-                    '<p class="nolate"> '.$late. ' :مقدار العجز  </p>';
-            }
+            echo "<div style='text-align:center; font-weight:bold'>";
+            
+            // echo "<div class='ajz'>";
+            // if ($late>0 && $late < 50){
+            //     echo
+            //         '<p class="late"> ' .$late .' :مقدار العجز  </p>';
+            // }
+            // else if ($late>=50){
+            //     $helperDiv = '<div class="helpermessage">لديك عجز عالي، استعن بالله ولا تعجز</div>';
+            //     echo
+            //         '<p class="biglate"> '.$late. ' :مقدار العجز  </p>';
+            // }
+            // else{
+            //     $late=0;
+            //     echo
+            //         '<p class="nolate"> '.$late. ' :مقدار العجز  </p>';
+            // }
 
             echo '
                 <p>احصائيات الحفظ</p>
             </div>';
-            if(isset($helperDiv)){
-                echo $helperDiv;
-            }
+            // if(isset($helperDiv)){
+            //     echo $helperDiv;
+            // }
 
         ?>
     

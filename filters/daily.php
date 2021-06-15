@@ -9,33 +9,46 @@ if(isset($_SESSION['username'])){
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $halqah = $row['halqah'];
     $groupID = $row['groupID'];
-
+    $than = $row['halqah'] == 'than';
     if($groupID ==0 ){
         $_SESSION['username'] = $username;
         header('Location:../dashboard.php');
         exit();
     }
 
-    $stmt = $con->prepare("SELECT 
-        wird_two.wird_id, wird_two.hifz, wird_two.muraja, wird_two.date, wird_two.hifztasmee3, wird_two.murajatasmee3, wird_two.reading,wird_two.reading_grade,
-        users.username, users.firstname, users.lastname
-        FROM wird_two
-        LEFT JOIN users ON users.userid = wird_two.user_id
-        WHERE halqah = '$halqah'
-        order by date desc
-    ");
+    if ($than){
+        $stmt = $con->prepare("SELECT 
+            wird_two.wird_id, wird_two.hifz, wird_two.muraja, wird_two.date, wird_two.hifztasmee3, wird_two.murajatasmee3, wird_two.reading,wird_two.reading_grade,
+            users.username, users.firstname, users.lastname
+            FROM wird_two
+            LEFT JOIN users ON users.userid = wird_two.user_id
+            WHERE halqah != 'jam' OR 'hofaz'
+            order by date desc
+        ");
+
+        $stmt->execute();
+    }
+    else{
+        $stmt = $con->prepare("SELECT 
+            wird_two.wird_id, wird_two.hifz, wird_two.muraja, wird_two.date, wird_two.hifztasmee3, wird_two.murajatasmee3, wird_two.reading,wird_two.reading_grade,
+            users.username, users.firstname, users.lastname
+            FROM wird_two
+            LEFT JOIN users ON users.userid = wird_two.user_id
+            WHERE halqah = '$halqah'
+            order by date desc
+        ");
+    }
 
     $stmt->execute();
     if (isset($_POST['filter'])){
         $filter= $_POST['selectfilter'];
-        header('Location:' . $filter. '.php');
+        header('Location:' . $filter);
     }
     if(isset($_POST['submit'])){
         $from= $_POST['fromdate'];
         $to =$_POST['todate'];
         $stmt = $con->prepare("SELECT wirdid,username,firstname,lastname,hifz,muraja,date,hifztasmee3,murajatasmee3 FROM wird WHERE halqah = '$halqah' and date between '$from' and '$to' order by date desc");
         $stmt->execute();
-
     }
     
 }
@@ -84,13 +97,13 @@ else{
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <input class="filtersearch" type="submit" value="ابحث" name="filter">
             <select name="selectfilter" id="filter">
-                <option value="daily">التسجيل اليومي</option>
-                <option value="highesthifz">الاعلى حفظا</option>
-                <option value="highestmuraja">الاعلى مراجعة</option>
-                <option value="lowesthifz">الاقل حفظا</option>
-                <option value="lowestmuraja">الاقل مراجعة</option>
+                <option value="daily.php">التسجيل اليومي</option>
+                <option value="totalHasad.php">مجموع الحصاد</option>
+                <option value="mstwaHasad.php?mstwa=المهرة">المهرة</option>
+                <option value="mstwaHasad.php?mstwa=الفرقان">الفرقان</option>
+                <option value="mstwaHasad.php?mstwa=الأترجة">الأترجة</option>
+                <option value="mstwaHasad.php?mstwa=السراج">السراج</option>
             </select>
-
         </form>
 
         <p style="margin-top:25px !important; margin-bottom:0">فرز الحصاد بواسطة التاريخ</p>
@@ -121,17 +134,23 @@ else{
             <table>
                 <tr>
                     <th>حذف</th>
-                    <th>عجز المراجعة</th>
+                    <!-- <th>عجز المراجعة</th> -->
                     <th>عدد الصفحات</th>
                     <th>المراجعة</th>
-                    <th>عجز الحفظ</th>
+                    <!-- <th>عجز الحفظ</th> -->
                     <th>عدد الصفحات</th>
                     <th>الحفظ</th>
-                    <th>عجز القراءة</th>
+                    <!-- <th>عجز القراءة</th> -->
                     <th>الدرجة</th>
                     <th>القراءة</th>
                     <th>التاريخ</th>
                     <th>الإسم</th>
+                    <th>المستوى</th>
+                    <?php
+                        if($than){
+                            echo '<th>الحلقة</th>';
+                        }
+                    ?>
                 </tr>
                 <?php
 
@@ -141,76 +160,84 @@ else{
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                     $username = $row['username'];
                     // Ajz logic
-                    $murajacheck = $con->prepare("SELECT muraja FROM users WHERE username = '$username'");
-                    $murajacheck->execute();
-                    $mamount = $murajacheck->fetch();
-
-                    $hifzcheck = $con->prepare("SELECT hifz FROM users WHERE username = '$username'");
-                    $hifzcheck->execute();
-                    $hamount = $hifzcheck->fetch();
+                    $userStmt = $con->prepare("SELECT halqah, mstwa,hifz,muraja FROM users WHERE username = '$username'");
+                    $userStmt->execute();
+                    $userRow = $userStmt->fetch();
+                    $mamount = $userRow['muraja'];
+                    $hamount = $userRow['hifz'];
+                    $halqah = $userRow['halqah'];
+                    $mstwa = $userRow['mstwa'];
 
                     echo 
                         '<tr>
                             
                         <td class="edit"><a href="../deletewird.php?wirdid='.$row['wird_id'] .'"class="fas fa-minus-square" style="color:#ff5151; font-size:20px"></a></td>';
                             // muraja
-                            if ($row['muraja'] >$mamount['muraja']){
-                                echo '<td>' . $mlate =0 . '</td>';
-                                echo "<td class = 'good'>" . $row['muraja'] ."</td>";
-                            }
-                            elseif ($row['muraja'] < $mamount['muraja']){
-                                $mlate = (int)$row['muraja'] - (int)$mamount['muraja'];
-                                echo '<td class="bad">' . $mlate . '</td>';
-                                echo "<td class = 'bad' style ='clear:left'>" . $row['muraja'] ."</td>"; 
+                            // if ($row['muraja'] >$mamount['muraja']){
+                            //     echo '<td>' . $mlate =0 . '</td>';
+                            //     echo "<td class = 'good'>" . $row['muraja'] ."</td>";
+                            // }
+                            // elseif ($row['muraja'] < $mamount['muraja']){
+                            //     $mlate = (int)$row['muraja'] - (int)$mamount['muraja'];
+                            //     echo '<td class="bad">' . $mlate . '</td>';
+                            //     echo "<td class = 'bad' style ='clear:left'>" . $row['muraja'] ."</td>"; 
                                
-                            }
-                            else{
-                                echo '<td>' . $mlate=0 . '</td>';
-                                echo "<td class = 'hifz' style ='clear:left'>" . $row['muraja'] ."</td>"; 
-                            }
+                            // }
+                            // else{
+                            //     echo '<td>' . $mlate=0 . '</td>';
+                            // }
+                            echo "<td class = 'hifz' style ='clear:left'>" . $row['muraja'] ."</td>"; 
                             echo '<td>' . $row['murajatasmee3'] . '</td>';
                             // hifz
                             
-                            if ( $row['hifz'] > $hamount['hifz']){
-                                echo '<td>' . $hlate=0 . '</td>';
-                                echo "<td class = 'good'>" . $row['hifz'] ."</td>";
+                            // if ( $row['hifz'] > $hamount['hifz']){
+                            //     echo '<td>' . $hlate=0 . '</td>';
+                            //     echo "<td class = 'good'>" . $row['hifz'] ."</td>";
                               
-                            }
-                            elseif ($row['hifz'] < $hamount['hifz']){
-                                $hlate = (int)$row['hifz'] - (int)$hamount['hifz'];
-                                echo '<td class="bad">' . $hlate . '</td>';
-                                echo "<td class = 'bad' style ='clear:left'>" . $row['hifz'] ."</td>"; 
-                            }
-                            else{
-                                echo '<td>' . $hlate=0 . '</td>';
-                                echo "<td class = 'hifz'>" . $row['hifz'] ."</td>"; 
-                            }
+                            // }
+                            // elseif ($row['hifz'] < $hamount['hifz']){
+                            //     $hlate = (int)$row['hifz'] - (int)$hamount['hifz'];
+                            //     echo '<td class="bad">' . $hlate . '</td>';
+                            //     echo "<td class = 'bad' style ='clear:left'>" . $row['hifz'] ."</td>"; 
+                            // }
+                            // else{
+                            //     echo '<td>' . $hlate=0 . '</td>';
+                            //     echo "<td class = 'hifz'>" . $row['hifz'] ."</td>"; 
+                            // }
+                            
+                            echo "<td class = 'hifz'>" . $row['hifz'] ."</td>"; 
                             echo '<td>' . $row['hifztasmee3'] . '</td>';
 
                             // reading
 
-                            if ( $row['reading'] > 5){
-                                echo '<td>' . $rlate=0 . '</td>';
-                                echo "<td class = 'good'>" . $row['reading_grade'] ."</td>";
+                            // if ( $row['reading'] > 5){
+                            //     echo '<td>' . $rlate=0 . '</td>';
+                            //     echo "<td class = 'good'>" . $row['reading_grade'] ."</td>";
                               
-                            }
-                            elseif ($row['reading'] < 5){
-                                $rlate = 5- (int)$row['reading'];
-                                echo '<td class="bad">' . $rlate . '</td>';
-                                echo "<td class = 'bad' style ='clear:left'>" . $row['reading_grade'] ."</td>"; 
-                            }
-                            else{
-                                echo '<td>' . $rlate=0 . '</td>';
-                                echo "<td>" . $row['reading_grade'] ."</td>"; 
-                            }
+                            // }
+                            // elseif ($row['reading'] < 5){
+                            //     $rlate = 5- (int)$row['reading'];
+                            //     echo '<td class="bad">' . $rlate . '</td>';
+                            //     echo "<td class = 'bad' style ='clear:left'>" . $row['reading_grade'] ."</td>"; 
+                            // }
+                            // else{
+                            //     echo '<td>' . $rlate=0 . '</td>';
+                            //     echo "<td>" . $row['reading_grade'] ."</td>"; 
+                            // }
+                            echo "<td>" . $row['reading_grade'] ."</td>"; 
+
                             echo '<td>' . $row['reading'] . '</td>';
                             
                             echo '<td>' . $row['date'] . '</td>' .
 
 
-                            '<td>'. $row['firstname'] . ' ' . $row['lastname'] .'</td>' .
-                            '
-                        </tr>';
+                            '<td>'. $row['firstname'] . ' ' . $row['lastname'] .'</td>
+                            <td>' . $userRow['mstwa'] . '</td>';
+                           if($than){
+                               echo '<td>' . $userRow['halqah'] . '</td>';
+                           } 
+
+                        echo '</tr>';
                 }
 
                 ?>

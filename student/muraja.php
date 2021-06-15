@@ -17,57 +17,66 @@
             $isPlus = $row['isPLus'];
 
             echo '<tr>';
+            
+            echo "<td class = 'muraja'>" . $row['muraja'] ."</td>"; 
 
-            if($isPlus == 'set'){
-                echo "<td class = 'muraja good'>" . $row['muraja'] . "</td>";
-                $late -= $row['muraja'];
-            }
+            // if($isPlus == 'set'){
+            //     echo "<td class = 'muraja good'>" . $row['muraja'] . "</td>";
+            //     $late -= $row['muraja'];
+            // }
 
-            if ($isPlus != 'set' && ((float)$row['muraja'] > (float)$mamount['muraja'])){
-                echo "<td class = 'muraja good'>" . $row['muraja'] . "</td>";
-                $ajz = $row['muraja'] - $mamount['muraja'];
-                $late -= $ajz;
-            }
+            // if ($isPlus != 'set' && ((float)$row['muraja'] > (float)$mamount['muraja'])){
+            //     echo "<td class = 'muraja good'>" . $row['muraja'] . "</td>";
+            //     $ajz = $row['muraja'] - $mamount['muraja'];
+            //     $late -= $ajz;
+            // }
 
-            else if ($isPlus != 'set' && ((float)$row['muraja'] < (float)$mamount['muraja'])){
-                echo "<td class = 'muraja bad'>" . $row['muraja'] ."</td>"; 
-                $ajz = $row['muraja'] - $mamount['muraja'];
-                $late -= $ajz;
-            }
-            else if ($isPlus != 'set' && ((float)$row['muraja'] == (float)$mamount['muraja'])){
-                echo "<td class = 'muraja'>" . $row['muraja'] ."</td>"; 
-            }
+            // else if ($isPlus != 'set' && ((float)$row['muraja'] < (float)$mamount['muraja'])){
+            //     echo "<td class = 'muraja bad'>" . $row['muraja'] ."</td>"; 
+            //     $ajz = $row['muraja'] - $mamount['muraja'];
+            //     $late -= $ajz;
+            // }
+            // else if ($isPlus != 'set' && ((float)$row['muraja'] == (float)$mamount['muraja'])){
+            //     echo "<td class = 'muraja'>" . $row['muraja'] ."</td>"; 
+            // }
 
+                echo "<td class>" .$row['murajatasmee3'] ."</td>";
+            
+            // if($row['murajatasmee3']){
 
-            echo "<td class>" .$row['murajatasmee3'] ."</td>";
+            // }else{
+            //     echo "<td>لم يسمع</td>";
+            // }
             echo "<td class = 'date'>" .$row['date'] ."</td>";
 
 
             echo '</tr>';
         }
-        echo "<div class='ajz'>";
         
-        if ($late>0 && $late < 50){
-            echo
-                '<p class="late"> ' .$late .' :مقدار العجز  </p>';
-        }
-        else if ($late>=50){
-            $helperDiv = '<div class="helpermessage">لديك عجز عالي، استعن بالله ولا تعجز</div>';
-            echo
-                '<p class="biglate"> '.$late. ' :مقدار العجز  </p>';
-        }
-        else{
-            $late=0;
-            echo
-                '<p class="nolate"> '.$late. ' :مقدار العجز  </p>';
-        }
+        echo "<div style='text-align:center; font-weight:bold'>";
+        
+        // echo "<div class='ajz'>";
+        // if ($late>0 && $late < 50){
+        //     echo
+        //         '<p class="late"> ' .$late .' :مقدار العجز  </p>';
+        // }
+        // else if ($late>=50){
+        //     $helperDiv = '<div class="helpermessage">لديك عجز عالي، استعن بالله ولا تعجز</div>';
+        //     echo
+        //         '<p class="biglate"> '.$late. ' :مقدار العجز  </p>';
+        // }
+        // else{
+        //     $late=0;
+        //     echo
+        //         '<p class="nolate"> '.$late. ' :مقدار العجز  </p>';
+        // }
 
         echo '
             <p>احصائيات المراجعة</p>
         </div>';
-        if(isset($helperDiv)){
-            echo $helperDiv;
-        }
+        // if(isset($helperDiv)){
+        //     echo $helperDiv;
+        // }
 
     ?>
 

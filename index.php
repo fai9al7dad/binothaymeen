@@ -40,7 +40,7 @@
             
             if($count > 0 && $groupID == 0){
                 $_SESSION['username'] = $username;
-                header('Location:dashboard.php');
+                header('Location:chooseMstwa.php');
                 exit();    
             }
         }
