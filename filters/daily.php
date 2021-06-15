@@ -40,9 +40,11 @@ if(isset($_SESSION['username'])){
     }
 
     $stmt->execute();
+
     if (isset($_POST['filter'])){
-        $filter= $_POST['selectfilter'];
+        $filter = $_POST['selectfilter'];
         header('Location:' . $filter);
+        exit();
     }
     if(isset($_POST['submit'])){
         $from= $_POST['fromdate'];
@@ -56,6 +58,7 @@ if(isset($_SESSION['username'])){
 else{
     echo'you are not registerd';
     header('Location: ../index.php');
+    exit();
 }
 
 ?>

@@ -40,6 +40,7 @@ if(isset($_SESSION['username'])){
     if (isset($_POST['filter'])){
         $filter= $_POST['selectfilter'];
         header('Location:' . $filter);
+        exit();
     }
 
 }
@@ -107,12 +108,12 @@ else{
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                 <input class="filtersearch" type="submit" value="ابحث" name="filter">
                 <select name="selectfilter" id="filter">
-                    <option value="./daily.php">التسجيل اليومي</option>
-                    <option value="./totalHasad.php">مجموع الحصاد</option>
-                    <option value="./mstwaHasad.php?mstwa=المهرة">المهرة</option>
-                    <option value="./mstwaHasad.php?mstwa=الفرقان">الفرقان</option>
-                    <option value="./mstwaHasad.php?mstwa=الأترجة">الأترجة</option>
-                    <option value="./mstwaHasad.php?mstwa=السراج">السراج</option>
+                    <option value="daily.php">التسجيل اليومي</option>
+                    <option value="totalHasad.php">مجموع الحصاد</option>
+                    <option value="mstwaHasad.php?mstwa=المهرة">المهرة</option>
+                    <option value="mstwaHasad.php?mstwa=الفرقان">الفرقان</option>
+                    <option value="mstwaHasad.php?mstwa=الأترجة">الأترجة</option>
+                    <option value="mstwaHasad.php?mstwa=السراج">السراج</option>
                 </select>
             </form>
         <p>مجموع الحصاد</p>
