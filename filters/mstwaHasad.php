@@ -115,20 +115,20 @@ session_start();
 
                 <?php
                 $sum = 0;
-                // while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
-                //     echo
-                //         '<tr>
-                //         <td>' .  $row['sum(wird_two.reading_grade)'] . '</td>' .
-                //         '<td>' .  $row['sum(wird_two.muraja)'] . '</td>' .
-                //         '<td>' .  $row['sum(wird_two.hifz)'] . '</td>' .
-                //         '<td>'. $row['firstname'] . ' ' . $row['lastname'] .'</td>' .
-                //             '
-                //         </tr>';
+                    echo
+                        '<tr>
+                        <td>' .  $row['sum(wird_two.reading_grade)'] . '</td>' .
+                        '<td>' .  $row['sum(wird_two.muraja)'] . '</td>' .
+                        '<td>' .  $row['sum(wird_two.hifz)'] . '</td>' .
+                        '<td>'. $row['firstname'] . ' ' . $row['lastname'] .'</td>' .
+                            '
+                        </tr>';
 
-                //         $sum += $row['sum(wird_two.hifz)'];
+                        $sum += $row['sum(wird_two.hifz)'];
 
-                // }
+                }
                 ?>
                 <tr >
                     <td class= "good"> <?php echo $sum; ?></td>
