@@ -18,7 +18,7 @@ if(isset($_SESSION['username'])){
 
     if ($than){
         $stmt = $con->prepare("SELECT 
-            wird_two.wird_id, wird_two.hifz, wird_two.muraja, wird_two.date, wird_two.hifztasmee3, wird_two.murajatasmee3, wird_two.reading,wird_two.reading_grade,sum(wird_two.hifz), sum(wird_two.muraja), sum(wird_two.reading_grade), sum(wird_two.reading),
+            wird_two.wird_id, wird_two.hifz, wird_two.muraja, wird_two.date, wird_two.hifztasmee3, wird_two.murajatasmee3, wird_two.reading,wird_two.reading_grade,
             users.username, users.firstname, users.lastname
             FROM wird_two
             LEFT JOIN users ON users.userid = wird_two.user_id
