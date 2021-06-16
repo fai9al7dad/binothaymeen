@@ -1,5 +1,7 @@
 <table class="statisticsbox">
         <tr>
+        <th>الحذف</th>
+        <th>تعديل</th>
         <th>المقدار</th>
         <th>التسميع</th>
         <th>التاريخ</th>
@@ -7,7 +9,7 @@
 
         <?php 
             // DATe
-            $stmt = $con->prepare("SELECT hifz,muraja,date,hifz,hifztasmee3,wird_id,isPLus FROM wird_two WHERE user_id = '$userid' ORDER BY date desc ");
+            $stmt = $con->prepare("SELECT wird_id,hifz,muraja,date,hifz,hifztasmee3,wird_id,isPLus FROM wird_two WHERE user_id = '$userid' ORDER BY date desc ");
             $stmt->execute();
             $stmt2 = $con->prepare("SELECT hifz FROM users WHERE username = '$username'");
             $stmt2->execute();
@@ -18,6 +20,11 @@
                 echo '<tr>';
                 $isPlus = $row['isPLus'];
 
+                echo "<tr>
+                
+                <td><a href='deletewird.php?wirdid=".$row['wird_id'] ."'class='fas fa-minus-square' style='color:#ff5151'></a></td>
+
+                <td class='edit'><a href='editStudentWird.php?wirdid=" . $row['wird_id'] ." ' class='fa fa-edit' style='color:#2997ff'></a></td>";
                 echo "<td class = 'hifz'>" . $row['hifz'] ."</td>"; 
 
                 // if($isPlus == 'set'){

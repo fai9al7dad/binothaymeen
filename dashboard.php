@@ -105,7 +105,6 @@
                 <h1><?php echo $row["firstname"] . ' ' . $row['lastname']; ?></h1>
             </div>
             
-     
     
         <!--  تسجيل الحفظ والمراجعة والتسميع -->
 
@@ -135,4 +134,5 @@
             return false; 
         return true; 
     } 
+
 </script>

@@ -15,19 +15,24 @@ session_start();
     
         if ($than){
             $stmt = $con->prepare(
-                "SELECT users.firstname,users.lastname, sum(wird_two.hifz), sum(wird_two.muraja), sum(wird_two.reading_grade), sum(wird_two.reading) FROM wird_two left join users on users.userid = wird_two.user_id
+                "SELECT users.firstname, users.lastname ,
+                wird_two.hifz, wird_two.muraja, wird_two.reading_grade ,wird_two.reading
+                 FROM wird_two left join users on users.userid = wird_two.user_id
                 WHERE users.mstwa = '$mstwa'
-                GROUP BY firstname
+                order by date desc
+
             ");
             $stmt->execute();
         }
         else{
             $stmt = $con->prepare(
-                "SELECT users.firstname,users.lastname, sum(wird_two.hifz), sum(wird_two.muraja), sum(wird_two.reading_grade), sum(wird_two.reading)
+                "SELECT users.firstname,users.lastname,wird_two.hifz ,wird_two.muraja ,wird_two.reading_grade ,wird_two.reading 
                 FROM wird_two
                 left join users on users.userid = wird_two.user_id
                 WHERE users.mstwa = '$mstwa' AND halqah != 'hofaz' OR 'jam'
-                GROUP BY firstname");
+                order by date desc
+
+                ");
             $stmt->execute();
         }   
     }
@@ -105,9 +110,9 @@ session_start();
         </form>
 
         
-        <p style="margin-top:20px">مجموع حصاد مستوى <?php echo $mstwa; ?></p>
+        <p style="margin-top:20px"> حصاد مستوى <?php echo $mstwa; ?></p>
         <div style="display:flex; justify-content:flex-end; margin-bottom: 10px; margin-top:20px">
-            <a  href ="./mstwaDaily.php?mstwa=<?php echo $mstwa?>" class="addtasme3">الحصاد اليومي<i class="fas fa-tasks"></i></a> 
+            <a  href ="./mstwaHasad.php?mstwa=<?php echo $mstwa?>" class="addtasme3">مجموع الحصاد<i class="fas fa-tasks"></i></a> 
         </div>
         <div style="overflow-x:auto;">
             <table>
@@ -120,36 +125,21 @@ session_start();
                 </tr>
 
                 <?php
-                $rgsum = 0;
-                $rsum = 0;
-                $hsum = 0;
-                $msum = 0;
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                     echo
                         '<tr>
-                        <td>' .  $row['sum(wird_two.reading_grade)'] . '</td>' .
-                        '<td>' .  $row['sum(wird_two.reading)'] . '</td>' .
-                        '<td>' .  $row['sum(wird_two.muraja)'] . '</td>' .
-                        '<td>' .  $row['sum(wird_two.hifz)'] . '</td>' .
+                        <td>' .  $row['reading_grade'] . '</td>' .
+                        '<td>' .  $row['reading'] . '</td>' .
+                        '<td>' .  $row['muraja'] . '</td>' .
+                        '<td>' .  $row['hifz'] . '</td>' .
                         '<td>'. $row['firstname'] . ' ' . $row['lastname'] .'</td>' .
                             '
                         </tr>';
 
-                        $hsum += $row['sum(wird_two.hifz)'];
-                        $msum += $row['sum(wird_two.muraja)'];
-                        $rsum += $row['sum(wird_two.reading)'];
-                        $rgsum += $row['sum(wird_two.reading_grade)'];
 
                 }
                 ?>
-                <tr >
-                    <td class= "good"> <?php echo $rgsum; ?></td>
-                    <td class= "good"> <?php echo $rsum; ?></td>
-                    <td class= "good"> <?php echo $msum; ?></td>
-                    <td class= "good"> <?php echo $hsum; ?></td>
-                    <td class="good">المجموع</td>
-                </tr>
             </table>
 
         </div>

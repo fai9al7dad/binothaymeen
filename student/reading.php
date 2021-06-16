@@ -1,18 +1,23 @@
 <table class="statisticsbox">
     <tr>
+    <th>الحذف</th>
+    <th>تعديل</th>
     <th>الدرجة</th>
     <th>المقدار</th>
     <th>التاريخ</th>
     </tr>
 
     <?php 
-        $stmt = $con->prepare("SELECT reading, reading_grade, date,isPLus FROM wird_two WHERE user_id = '$userid' ORDER BY wird_id desc");
+        $stmt = $con->prepare("SELECT wird_id, reading, reading_grade, date,isPLus FROM wird_two WHERE user_id = '$userid' ORDER BY wird_id desc");
         $stmt->execute();
         $late=0;
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             $isPlus = $row['isPLus'];
 
-            echo '<tr>';
+            echo "<tr>
+                <td><a href='deletewird.php?wirdid=".$row['wird_id'] ."'class='fas fa-minus-square' style='color:#ff5151'></a></td>
+
+                <td class='edit'><a href='editStudentWird.php?wirdid=" . $row['wird_id'] ." ' class='fa fa-edit' style='color:#2997ff'></a></td>";
 
 
             echo "<td class = 'reading_grade'>" . $row['reading_grade'] ."</td>"; 

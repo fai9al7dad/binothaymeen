@@ -314,6 +314,8 @@ input[type="checkbox"]{
     appearance: checkbox !important
 }
 
+
+
 @media(max-width :600px){
     .imgcontainer img{
         width: 135px;

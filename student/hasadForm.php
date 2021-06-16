@@ -51,10 +51,7 @@
         </label>
     </div>
 
-    <div class="plustasme" style="margin-bottom:26px;margin-top:20px">
-        <label for="plustasmee3">  تسميع زائد؟ <small style="color:#ababab"> لايحسب عجز </small></label>
-        <input type="checkbox" name="plustasmee3" id="plustasmee3">
-    </div>
+
     <div class="submitbutton">
         <button name ="create" type="submit" class="mainbutton"> سجل <i class="fas fa-plus"></i>
         </button>
