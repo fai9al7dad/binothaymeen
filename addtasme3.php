@@ -7,10 +7,17 @@ if(isset($_SESSION['username'])){
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $halqah = $row['halqah'];
+    $than = $row['halqah'] == 'than';
 
-    $stmt = $con->prepare("SELECT * FROM users WHERE halqah = '$halqah' AND groupID = '0'");
-    $stmt->execute();
-    $students = $stmt->fetchAll();
+    if($than){
+        $stmt = $con->prepare("SELECT * FROM users WHERE groupID = '0' AND halqah != 'hofaz' OR 'jam'");
+        $stmt->execute();
+        $students = $stmt->fetchAll();
+    }else{
+        $stmt = $con->prepare("SELECT * FROM users WHERE halqah = '$halqah' AND groupID = '0'");
+        $stmt->execute();
+        $students = $stmt->fetchAll();
+    }
 
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -30,12 +37,33 @@ if(isset($_SESSION['username'])){
         $row= $selectstmt->fetch();
         $user_id = $row['userid'];
 
+        if(!$hifzt){
+            $mtasmee3 = 'لا يوجد';
+        }
+        if(!$hifza){
+            $htasmee3 = 0;
+        }
+        if(!$murajat){
+            $murajat = 'لا يوجد';
+        }
+        if(!$murajaa){
+            $murajaa = 0;
+        }
+        if(!$date){
+            $date = 'now()';
+        }
+        if(!$reading){
+            $reading = 'لم يقرأ';
+        }
+        if(!$reading_grade){
+            $reading_grade = 0;
+        }
         if (isset($didnttasmee3)){
-            $insertstmt = $con->prepare("INSERT INTO wird_two(user_id,hifz,muraja,date,hifztasmee3,murajatasmee3,reading,reading_grade) VALUES (?,?,?,date,?,?,?,?)");
-            $result = $insertstmt->execute([$user_id,0, 0,$date,"لم يسمع","لم يسمع","لم يقرأ",0]);
+            $insertstmt = $con->prepare("INSERT INTO wird_two(user_id,hifz,muraja,date,hifztasmee3,murajatasmee3,reading,reading_grade) VALUES (?,?,?,?,?,?,?,?)");
+            $result = $insertstmt->execute([$user_id,0, 0,$date,"لا يوجد ","لا يوجد ","لم يقرأ",0]);
         }
         else{
-            $insertstmt = $con->prepare("INSERT INTO wird_two(user_id, hifz, muraja, date, hifztasmee3, murajatasmee3, reading, reading_grade) VALUES (?, ?, ?, DATE, ?, ?, ?, ?)");
+            $insertstmt = $con->prepare("INSERT INTO wird_two(user_id, hifz, muraja, date, hifztasmee3, murajatasmee3, reading, reading_grade) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             $result = $insertstmt->execute([$user_id,$hifza, $murajaa,$date,$hifzt,$murajat,$reading,$reading_grade]);
     
         }
@@ -123,9 +151,7 @@ else{
             <div style="display:flex; flex-direction:column;">
                 <label for="year">السنة</label>
                 <select name="year" id ="year">
-                    <option value="2020">2020</option>
                     <option value="2021">2021</option>
-                    <option value="2022">2022</option>
                 </select>
             </div>
         </div>

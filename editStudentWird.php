@@ -18,6 +18,7 @@ if(isset($_POST['submit'])){
     $update = $con->prepare("UPDATE wird_two SET hifz=?, muraja =?, reading = ?, reading_grade = ?, date = ? WHERE wird_id = ?");
     $update->execute([$hifz,$muraja,$reading,$readingGrade, $date, $id]);
     header('Location: dashboard.php');
+    exit();
 }
 
 ?>

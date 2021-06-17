@@ -16,7 +16,7 @@ session_start();
         if ($than){
             $stmt = $con->prepare(
                 "SELECT users.firstname, users.lastname ,
-                wird_two.hifz, wird_two.muraja, wird_two.reading_grade ,wird_two.reading
+                wird_two.hifz, wird_two.muraja, wird_two.reading_grade ,wird_two.reading, wird_two.date
                  FROM wird_two left join users on users.userid = wird_two.user_id
                 WHERE users.mstwa = '$mstwa'
                 order by date desc
@@ -122,6 +122,7 @@ session_start();
                     <th>المراجعة</th>
                     <th>الحفظ</th>
                     <th>الإسم</th>
+                    <th>التاريخ</th>
                 </tr>
 
                 <?php
@@ -134,6 +135,7 @@ session_start();
                         '<td>' .  $row['muraja'] . '</td>' .
                         '<td>' .  $row['hifz'] . '</td>' .
                         '<td>'. $row['firstname'] . ' ' . $row['lastname'] .'</td>' .
+                        '<td>'. $row['date'] . '</td>' .
                             '
                         </tr>';
 

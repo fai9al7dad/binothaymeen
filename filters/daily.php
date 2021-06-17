@@ -136,8 +136,9 @@ else{
         <div style="overflow-x:auto;">
             <table>
                 <tr>
+                    <th>تعديل</th>
                     <th>حذف</th>
-                    <!-- <th>عجز المراجعة</th> -->
+                        <!-- <th>عجز المراجعة</th> -->
                     <th>عدد الصفحات</th>
                     <th>المراجعة</th>
                     <!-- <th>عجز الحفظ</th> -->
@@ -173,8 +174,9 @@ else{
 
                     echo 
                         '<tr>
-                            
-                        <td class="edit"><a href="../deletewird.php?wirdid='.$row['wird_id'] .'"class="fas fa-minus-square" style="color:#ff5151; font-size:20px"></a></td>';
+                        <td><a href="../editStudentWird.php?wirdid=' . $row["wird_id"] .'" class="fa fa-edit" style="color:#2997ff"></a></td>
+
+                        <td><a href="../deletewird.php?wirdid='.$row['wird_id'] .'"class="fas fa-minus-square" style="color:#ff5151; font-size:20px"></a></td>';
                             // muraja
                             // if ($row['muraja'] >$mamount['muraja']){
                             //     echo '<td>' . $mlate =0 . '</td>';

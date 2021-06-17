@@ -48,6 +48,9 @@
         if(!$reading){
             $reading = 'لم يقرأ';
         }
+        if(!$readingGrade){
+            $readingGrade = 0;
+        }
         if ($date == "today"){
             $stmt = $con->prepare("INSERT INTO wird_two (user_id,hifz,muraja,date,hifztasmee3,murajatasmee3,reading,reading_grade,isPLus) VALUES(?,?,?,now(),?,?,?,?,?)");
        
@@ -58,7 +61,7 @@
             
             $stmt = $con->prepare("INSERT INTO wird_two (user_id,hifz,muraja,date,hifztasmee3,murajatasmee3,isPLus) VALUES(?,?,?,curdate() -1 ,?,?,?)");
        
-            $stmt->execute(array($userid,$hifz,$muraja,$htasmee3,$mtasmee3,$isPlus));
+            $stmt->execute(array($userid,$hifz,$muraja,$htasmee3,$mtasmee3,$reading, $readingGrade, $isPlus));
             
             echo '<p style="text-align:center;"> تم تسجيل وردك بنجاح</p>';
         }

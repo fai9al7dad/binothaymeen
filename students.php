@@ -8,10 +8,18 @@ if(isset($_SESSION['username'])){
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $halqah = $row['halqah'];
+    $than = $row['halqah'] == 'than';
 
-    $stmt = $con->prepare("SELECT * FROM users WHERE halqah = '$halqah' AND groupID = '0'");
-    $stmt->execute();
-    $students = $stmt->fetchAll();   
+    if($than){
+        $stmt = $con->prepare("SELECT * FROM users WHERE groupID = '0' AND halqah != 'jam' OR 'hofaz' ");
+        $stmt->execute();
+        $students = $stmt->fetchAll();   
+    }else{
+        $stmt = $con->prepare("SELECT * FROM users WHERE halqah = '$halqah' AND groupID = '0'");
+        $stmt->execute();
+        $students = $stmt->fetchAll();   
+
+    }
 }
 
 else{
