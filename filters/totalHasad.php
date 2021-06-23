@@ -23,26 +23,28 @@ if(isset($_SESSION['username'])){
         $stmt->execute();
     }
 
-
-    // if(isset($_POST['submit'])){
-    //     $from= $_POST['fromdate'];
-    //     $to =$_POST['todate'];
-    //     echo $from;
-    //     $stmt = $con->prepare(
-    //         "SELECT users.firstname,users.lastname, sum(wird_two.hifz), sum(wird_two.muraja), sum(wird_two.reading_grade) FROM wird_two left join users on users.userid = wird_two.user_id
-    //         WHERE halqah != 'jam' OR 'hofaz'
-    //         AND date BETWEEN '$from' and '$to'
-    //         GROUP BY firstname
-    //         ORDER BY date DESC
-    //     ");
-    //     $stmt->execute();
-    // }
     if (isset($_POST['filter'])){
         $filter= $_POST['selectfilter'];
         header('Location:' . $filter);
         exit();
     }
 
+    if(isset($_POST['farzDate'])){
+        $from= $_POST['fromdate'];
+        $to =$_POST['todate'];
+        if ($than){
+            $stmt = $con->prepare(
+                "SELECT users.firstname,users.lastname, sum(wird_two.hifz), sum(wird_two.muraja), sum(wird_two.reading_grade) FROM wird_two left join users on users.userid = wird_two.user_id
+                WHERE  (halqah != 'jam' OR 'hofaz') AND (DATE(wird_two.date) BETWEEN '$from' AND '$to')
+                GROUP BY firstname
+            ");
+            $stmt->execute();
+        }
+        else{
+            $stmt = $con->prepare("SELECT users.firstname,users.lastname, sum(wird_two.hifz), sum(wird_two.muraja), sum(wird_two.reading_grade) FROM wird_two left join users on users.userid = wird_two.user_id  WHERE (halqah ='$halqah') AND (DATE(wird_two.date) BETWEEN '$from' AND '$to') GROUP BY firstname");
+            $stmt->execute();
+        }
+    }
 }
 
 else{
@@ -85,7 +87,7 @@ else{
         <div class="clear"></div>
 
         
-        <!-- <p style="margin-top:25px !important; margin-bottom:0">فرز الحصاد بواسطة التاريخ</p>
+        <p style="margin-top:25px !important; margin-bottom:0">فرز الحصاد بواسطة التاريخ</p>
         <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
             <div class="farzhasad" style="display:flex; justify-content:flex-end">
                 <div class="flexcol">
@@ -99,8 +101,8 @@ else{
                 </div>
             </div>
 
-            <input name ="submit" type="submit" value="ابحث" class="filtersearch" style="margin-bottom:10px">
-        </form> -->
+            <input name ="farzDate" type="submit" value="ابحث" class="filtersearch" style="margin-bottom:10px">
+        </form>
 
         <!-- الاحصائيات -->
 

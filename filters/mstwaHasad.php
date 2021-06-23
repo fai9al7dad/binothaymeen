@@ -36,6 +36,28 @@ session_start();
         header('Location:' . $filter);
         exit();
     }
+
+    if(isset($_POST['farzDate'])){
+        $from= $_POST['fromdate'];
+        $to =$_POST['todate'];
+        if ($than){
+            $stmt = $con->prepare(
+                "SELECT users.firstname,users.lastname, sum(wird_two.hifz), sum(wird_two.muraja), sum(wird_two.reading_grade), sum(wird_two.reading) FROM wird_two left join users on users.userid = wird_two.user_id
+                WHERE users.mstwa = '$mstwa' AND DATE(wird_two.date) BETWEEN '$from' AND '$to'
+                GROUP BY firstname
+            ");
+            $stmt->execute();
+        }
+        else{
+            $stmt = $con->prepare(
+                "SELECT users.firstname,users.lastname, sum(wird_two.hifz), sum(wird_two.muraja), sum(wird_two.reading_grade), sum(wird_two.reading)
+                FROM wird_two
+                left join users on users.userid = wird_two.user_id
+                WHERE users.mstwa = '$mstwa' AND DATE(wird_two.date) BETWEEN '$from' AND '$to' AND halqah != 'hofaz' OR 'jam'
+                GROUP BY firstname");
+            $stmt->execute();
+        }   
+    }
 }
 
 ?>
@@ -72,7 +94,7 @@ session_start();
         <div class="clear"></div>
 
         
-        <!-- <p style="margin-top:25px !important; margin-bottom:0">فرز الحصاد بواسطة التاريخ</p>
+        <p style="margin-top:25px !important; margin-bottom:0">فرز الحصاد بواسطة التاريخ</p>
         <form action="<?php // echo $_SERVER['PHP_SELF']?>" method="POST">
             <div class="farzhasad" style="display:flex; justify-content:flex-end">
                 <div class="flexcol">
@@ -86,8 +108,8 @@ session_start();
                 </div>
             </div>
 
-            <input name ="submit" type="submit" value="ابحث" class="filtersearch" style="margin-bottom:10px">
-        </form> -->
+            <input name ="farzDate" type="submit" value="ابحث" class="filtersearch" style="margin-bottom:10px">
+        </form>
 
         <!-- الاحصائيات -->
 

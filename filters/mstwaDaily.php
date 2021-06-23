@@ -31,7 +31,6 @@ session_start();
                 left join users on users.userid = wird_two.user_id
                 WHERE users.mstwa = '$mstwa' AND halqah != 'hofaz' OR 'jam'
                 order by date desc
-
                 ");
             $stmt->execute();
         }   
@@ -40,6 +39,31 @@ session_start();
         $filter= $_POST['selectfilter'];
         header('Location:' . $filter);
         exit();
+    }
+    if(isset($_POST['farzDate'])){
+        $from= $_POST['fromdate'];
+        $to =$_POST['todate'];
+        if ($than){
+            $stmt = $con->prepare(
+                "SELECT users.firstname, users.lastname ,
+                wird_two.hifz, wird_two.muraja, wird_two.reading_grade ,wird_two.reading, wird_two.date
+                FROM wird_two left join users on users.userid = wird_two.user_id
+                WHERE users.mstwa = '$mstwa' AND DATE(wird_two.date) BETWEEN '$from' AND '$to'
+                order by date desc
+
+            ");
+            $stmt->execute();
+        }
+        else{
+            $stmt = $con->prepare(
+                "SELECT users.firstname,users.lastname,wird_two.hifz ,wird_two.muraja ,wird_two.reading_grade ,wird_two.reading 
+                FROM wird_two
+                left join users on users.userid = wird_two.user_id
+                WHERE users.mstwa = '$mstwa' AND DATE(wird_two.date) BETWEEN '$from' AND '$to' AND halqah != 'hofaz' OR 'jam'
+                order by date desc
+                ");
+            $stmt->execute();
+        }  
     }
 }
 
@@ -77,7 +101,7 @@ session_start();
         <div class="clear"></div>
 
         
-        <!-- <p style="margin-top:25px !important; margin-bottom:0">فرز الحصاد بواسطة التاريخ</p>
+        <p style="margin-top:25px !important; margin-bottom:0">فرز الحصاد بواسطة التاريخ</p>
         <form action="<?php // echo $_SERVER['PHP_SELF']?>" method="POST">
             <div class="farzhasad" style="display:flex; justify-content:flex-end">
                 <div class="flexcol">
@@ -91,8 +115,8 @@ session_start();
                 </div>
             </div>
 
-            <input name ="submit" type="submit" value="ابحث" class="filtersearch" style="margin-bottom:10px">
-        </form> -->
+            <input name ="farzDate" type="submit" value="ابحث" class="filtersearch" style="margin-bottom:10px">
+        </form>
 
         <!-- الاحصائيات -->
 
