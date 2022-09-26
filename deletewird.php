@@ -20,7 +20,7 @@ else if(isset($_GET['userid'])){
     $stmt->execute();
 
     // Delete user registerd wird from database
-    $stmt = $con->prepare("DELETE FROM wird_id where username = '$username'");
+    $stmt = $con->prepare("DELETE FROM wird_two where username = '$username'");
     $stmt->execute();
     header('Location:filters/daily.php');
 }
